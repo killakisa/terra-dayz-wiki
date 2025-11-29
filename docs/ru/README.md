@@ -1,6 +1,6 @@
-# Terra DayZ Wiki (RU)
+# Terra DayZ Quest Wiki (RU)
 
-Добро пожаловать в вики серверов Terra DayZ.
+Квесты 
 
 Выберите сервер:
 - [Cherno](cherno/linear.md)

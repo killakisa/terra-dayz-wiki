@@ -8,23 +8,19 @@
 <body>
   <div id="app"></div>
 
-  <script>
-    window.$docsify = {
-      name: 'Terra DayZ Wiki',
-      loadSidebar: true,
-      subMaxLevel: 3,
-      alias: {
-        '/ru/.*/_sidebar.md': '/ru/_sidebar.md',
-        '/en/.*/_sidebar.md': '/en/_sidebar.md'
-      },
-      search: {
-        placeholder: {
-          '/ru/': 'Поиск...',
-          '/en/': 'Search...'
-        }
-      }
+<script>
+  window.$docsify = {
+    name: 'Terra DayZ Wiki',
+    loadSidebar: true,
+    subMaxLevel: 3,
+    routerMode: 'history',
+    alias: {
+      '/ru/.*/_sidebar.md': '/ru/_sidebar.md',
+      '/en/.*/_sidebar.md': '/en/_sidebar.md'
     }
-  </script>
+  }
+</script>
+
 
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>

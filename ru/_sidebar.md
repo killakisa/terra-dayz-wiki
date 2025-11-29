@@ -1,12 +1,12 @@
 - 🗺 Серверы
 
-  - **Cherno**
+  - Cherno
     - [Линейные квесты](cherno/linear.md)
 
-  - **DeerIsle**
+  - DeerIsle
     - [Линейные квесты](deerisle/linear.md)
 
-  - **Frostline**
+  - Frostline
     - [Линейные квесты](frostline/linear.md)
 
 ---

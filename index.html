@@ -11,17 +11,17 @@
   <script>
     window.$docsify = {
       name: 'Terra DayZ Wiki',
-      repo: '',
       loadSidebar: true,
       subMaxLevel: 3,
-      search: {
-        noData: {'/ru/': 'Ничего не найдено','/en/': 'No results'},
-        paths: 'auto',
-        placeholder: {'/ru/': 'Поиск…','/en/': 'Search…'}
-      },
       alias: {
         '/ru/.*/_sidebar.md': '/ru/_sidebar.md',
         '/en/.*/_sidebar.md': '/en/_sidebar.md'
+      },
+      search: {
+        placeholder: {
+          '/ru/': 'Поиск...',
+          '/en/': 'Search...'
+        }
       }
     }
   </script>

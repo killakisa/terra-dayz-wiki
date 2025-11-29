@@ -1,8 +1,11 @@
-- 🗺 Servers
+- Servers
 
-  - Cherno
-    - [Storyline Quests](cherno/linear.md)
+  - [Cherno](cherno/linear.md)
+  - [DeerIsle](deerisle/linear.md)
+  - [Frostline](frostline/linear.md)
 
-- 🌍 Languages
+---
+
+- Languages
   - [🇷🇺 Russian](/ru/)
   - [🇬🇧 English](/en/)

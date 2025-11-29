@@ -1,4 +1,4 @@
 Redirecting...
 
-[Русская версия](/ru/)
-[English version](/en/)
+[🇷🇺 Русская версия](/ru/)
+[🇬🇧 English version](/en/)

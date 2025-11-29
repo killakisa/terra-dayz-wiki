@@ -1,2 +1,4 @@
-# terra-dayz-wiki
-Terra DayZ Wiki
+Redirecting...
+
+[Русская версия](/ru/)
+[English version](/en/)

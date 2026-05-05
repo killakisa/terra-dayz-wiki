@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Оружие</title>
+
+<style>
+body {
+    margin: 0;
+    background: #0b0f0d;
+    color: #fff;
+    font-family: Arial;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+}
+
+h1 {
+    color: #9cff57;
+    text-align: center;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 15px 0;
+    background: #111;
+    border: 1px solid #2b3a2f;
+    border-radius: 8px;
+    color: #fff;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    background: #111;
+    color: #9cff57;
+    padding: 10px;
+    text-align: left;
+}
+
+.table td {
+    padding: 8px;
+    border-bottom: 1px solid #1f2a22;
+}
+
+.table tr:hover {
+    background: #1a1f1c;
+}
+
+.back {
+    margin-bottom: 20px;
+    cursor: pointer;
+    color: #9cff57;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="back" onclick="goBack()">← Назад</div>
+
+<h1>Оружие и урон</h1>
+
+<input id="search" placeholder="Поиск оружия..." oninput="render()">
+
+<table class="table">
+<thead>
+<tr>
+<th>Оружие</th>
+<th>Патрон</th>
+<th>Урон</th>
+<th>Магазин</th>
+</tr>
+</thead>
+<tbody id="list"></tbody>
+</table>
+
+</div>
+
+<script>
+
+let weapons = [];
+
+function goBack(){
+    window.location.href = "index.html";
+}
+
+// 🔥 данные прямо в коде (можно потом вынести в CSV)
+weapons = [
+{w:"Glock17",a:"9x19",d:40,m:30},
+{w:"M1928A1",a:"45ACP",d:40,m:100},
+{w:"MP5SD",a:"9x19",d:40,m:30},
+{w:"Vector",a:"45ACP",d:40,m:30},
+
+{w:"AKM",a:"7.62x39",d:110,m:75},
+{w:"M16A4",a:"5.56x45",d:110,m:100},
+{w:"FAMAS",a:"5.56x45",d:110,m:100},
+
+{w:"PKM",a:"7.62x54",d:150,m:150},
+{w:"PKP",a:"7.62x54",d:150,m:200},
+
+{w:"VSSK",a:"12.7x55",d:800,m:5},
+{w:"ASH12",a:"12.7x55",d:800,m:20},
+
+{w:"AWM",a:".338",d:900,m:5},
+{w:"DVL10",a:".338",d:900,m:5},
+
+{w:"M300",a:".408",d:1600,m:7},
+
+{w:"AS50",a:"50BMG",d:2500,m:10},
+{w:"M82A2",a:"50BMG",d:2500,m:10},
+
+{w:"KSVK",a:"12.7x108",d:3500,m:5},
+{w:"Alligator",a:"14.5x114",d:4500,m:5},
+{w:"AR50A1",a:"20mm",d:5500,m:0}
+];
+
+function render(){
+
+    const list = document.getElementById("list");
+    const search = document.getElementById("search").value.toLowerCase();
+
+    list.innerHTML = "";
+
+    weapons.forEach(w => {
+
+        if(w.w.toLowerCase().includes(search)){
+
+            list.innerHTML += `
+            <tr>
+                <td>${w.w}</td>
+                <td>${w.a}</td>
+                <td>${colorDamage(w.d)}</td>
+                <td>${w.m}</td>
+            </tr>
+            `;
+        }
+    });
+}
+
+// 🔥 цвет урона
+function colorDamage(d){
+
+    if(d >= 2000) return `<span style="color:#ff4d4d">${d}</span>`; // 🔴 имба
+    if(d >= 1000) return `<span style="color:#c77dff">${d}</span>`; // 🟣 топ
+    if(d >= 300) return `<span style="color:#4da6ff">${d}</span>`; // 🔵 среднее
+
+    return d;
+}
+
+render();
+
+</script>
+
+</body>
+</html>

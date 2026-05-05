@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Свойства артефактов</title>
+
+<style>
+body {
+    margin: 0;
+    background: #0b0f0d;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 1150px;
+    margin: 40px auto;
+    padding: 0 16px;
+}
+
+.back {
+    cursor: pointer;
+    color: #9cff57;
+    margin-bottom: 16px;
+}
+
+.back:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    text-align: center;
+    color: #9cff57;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #9aa39d;
+    margin-bottom: 16px;
+}
+
+.section {
+    margin-top: 14px;
+    padding: 15px;
+    background: #111;
+    border-radius: 10px;
+    border: 1px solid #2b3a2f;
+}
+
+.legend {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 8px;
+    color: #c4cdc8;
+}
+
+.legend div {
+    background: #151a17;
+    border: 1px solid #2b3a2f;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 14px;
+}
+
+.groups {
+    display: grid;
+    gap: 12px;
+}
+
+.group-card {
+    background: #151a17;
+    border: 1px solid #2b3a2f;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.group-title {
+    color: #9cff57;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 12px;
+    border-bottom: 1px solid #2b3a2f;
+    background: #101612;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 9px 8px;
+    border-bottom: 1px solid #243028;
+    text-align: center;
+    font-size: 14px;
+}
+
+th:first-child, td:first-child {
+    text-align: left;
+    padding-left: 12px;
+}
+
+th {
+    color: #9aa39d;
+    font-weight: 700;
+    background: #121914;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+.plus {
+    color: #5eff8a;
+    font-weight: 700;
+}
+
+.minus {
+    color: #ff6f6f;
+    font-weight: 700;
+}
+
+.empty {
+    color: #5a665f;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+    <div class="back" onclick="goBack()">← Назад</div>
+
+    <h1>Свойства артефактов</h1>
+    <div class="subtitle">Плюсы и минусы по группам артефактов</div>
+
+    <div class="section">
+        <div class="legend">
+            <div>🩸 кровь</div>
+            <div>❤️ здоровье</div>
+            <div>🍗 еда</div>
+            <div>💧 вода</div>
+            <div>✂️ порезы (заживление / получение)</div>
+            <div>⚡ шок (восстановление / урон)</div>
+            <div>🟢 плюс / 🔴 минус</div>
+        </div>
+    </div>
+
+    <div id="groups" class="groups"></div>
+</div>
+
+<script>
+function goBack() {
+    window.location.href = "index.html";
+}
+
+function parseCSV(text) {
+    const rows = [];
+    let row = [];
+    let current = "";
+    let insideQuotes = false;
+
+    for (let char of text) {
+        if (char === '"') {
+            insideQuotes = !insideQuotes;
+        } else if (char === "," && !insideQuotes) {
+            row.push(current.trim());
+            current = "";
+        } else if (char === "\n" && !insideQuotes) {
+            row.push(current.trim());
+            rows.push(row);
+            row = [];
+            current = "";
+        } else if (char !== "\r") {
+            current += char;
+        }
+    }
+
+    if (current) {
+        row.push(current.trim());
+        rows.push(row);
+    }
+
+    const headers = rows[0] || [];
+
+    return rows.slice(1).map(r => {
+        const obj = {};
+        headers.forEach((h, i) => {
+            obj[h.replace(/"/g, "").trim()] = (r[i] || "").replace(/"/g, "").trim();
+        });
+        return obj;
+    });
+}
+
+async function loadCSV(file) {
+    const text = await fetch(file).then(r => r.text());
+    return parseCSV(text);
+}
+
+function formatValue(v) {
+    if (v === "+") return "<span class='plus'>🟢 +</span>";
+    if (v === "-") return "<span class='minus'>🔴 -</span>";
+    if (v === "+-") return "<span class='plus'>🟢+</span>/<span class='minus'>🔴-</span>";
+    return "<span class='empty'>—</span>";
+}
+
+function groupTitle(id) {
+    const names = {
+        detector: "Детектор",
+        scanner: "Сканер",
+        stag: "STAG"
+    };
+    return names[id] || id;
+}
+
+function renderGroups(rows) {
+    const wrap = document.getElementById("groups");
+    wrap.innerHTML = "";
+
+    const order = ["detector", "detector2", "scanner", "stag"];
+
+    order.forEach(group => {
+        const list = rows.filter(r => r.group === group);
+        if (!list.length) return;
+
+        let tableRows = "";
+        list.forEach(item => {
+            tableRows += `
+                <tr>
+                    <td>${item.name}</td>
+                    <td>${formatValue(item.blood)}</td>
+                    <td>${formatValue(item.health)}</td>
+                    <td>${formatValue(item.food)}</td>
+                    <td>${formatValue(item.water)}</td>
+                    <td>${formatValue(item.cut)}</td>
+                    <td>${formatValue(item.shock)}</td>
+                </tr>
+            `;
+        });
+
+        wrap.innerHTML += `
+            <div class="group-card">
+                <div class="group-title">${groupTitle(group)}</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Артефакт</th>
+                            <th>🩸</th>
+                            <th>❤️</th>
+                            <th>🍗</th>
+                            <th>💧</th>
+                            <th>✂️</th>
+                            <th>⚡</th>
+                        </tr>
+                    </thead>
+                    <tbody>${tableRows}</tbody>
+                </table>
+            </div>
+        `;
+    });
+}
+
+async function init() {
+    const rows = await loadCSV("data/ARTIFACTS-PROPERTIES.csv");
+    renderGroups(rows);
+}
+
+window.onload = init;
+</script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Медицина</title>
+
+<style>
+body {
+    margin: 0;
+    background: #0b0f0d;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 1050px;
+    margin: 40px auto;
+    padding: 0 16px;
+}
+
+.back {
+    cursor: pointer;
+    color: #9cff57;
+    margin-bottom: 16px;
+}
+
+.back:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    text-align: center;
+    color: #9cff57;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #9aa39d;
+    margin-bottom: 18px;
+}
+
+.section {
+    margin-top: 14px;
+    padding: 15px;
+    background: #111;
+    border-radius: 10px;
+    border: 1px solid #2b3a2f;
+}
+
+.section h2 {
+    margin-top: 0;
+    color: #9cff57;
+    font-size: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 10px;
+}
+
+.card {
+    background: #151a17;
+    border: 1px solid #2b3a2f;
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.card h3 {
+    margin: 0 0 8px 0;
+}
+
+.card ul {
+    margin: 0;
+    padding-left: 18px;
+    color: #c4cdc8;
+    line-height: 1.45;
+}
+
+.red { color: #ff6666; }
+.yellow { color: #ffd66f; }
+.blue { color: #67b0ff; }
+
+.note-list {
+    margin: 0;
+    padding-left: 18px;
+    color: #c4cdc8;
+    line-height: 1.45;
+}
+
+.image-wrap img {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #2b3a2f;
+}
+
+.img-note {
+    color: #9aa39d;
+    font-size: 13px;
+    margin-top: 8px;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+    <div class="back" onclick="goBack()">← Назад</div>
+
+    <h1>Медицина</h1>
+    <div class="subtitle">Аптечки, перевязка и дополнительные медицинские предметы</div>
+
+    <div class="section">
+        <h2>📛 Медицинские наборы</h2>
+        <div class="grid">
+            <div class="card">
+                <h3 class="red">🔴 Красный аптечный набор</h3>
+                <ul>
+                    <li>ХП: +25</li>
+                    <li>Кровь: +500</li>
+                    <li>Порезы: -3</li>
+                    <li>Время использования: 7с</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3 class="yellow">🟡 Желтый аптечный набор</h3>
+                <ul>
+                    <li>ХП: +40</li>
+                    <li>Кровь: +1000</li>
+                    <li>Порезы: -6</li>
+                    <li>Время использования: 5с</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3 class="blue">🔵 Синий аптечный набор</h3>
+                <ul>
+                    <li>ХП: +70</li>
+                    <li>Кровь: +1500</li>
+                    <li>Порезы: -9</li>
+                    <li>Время использования: 3с</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📛 Перевязочные материалы</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>🩹 Простой бинт</h3>
+                <ul>
+                    <li>Использований: 5</li>
+                    <li>Скорость перемотки: 5с</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>🩹 Бинт медицинский</h3>
+                <ul>
+                    <li>Использований: 7</li>
+                    <li>Скорость перемотки: 5с</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>🩹 Военный бинт</h3>
+                <ul>
+                    <li>Использований: 10</li>
+                    <li>Скорость перемотки: 4с</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>🩹 Клей БФ-6</h3>
+                <ul>
+                    <li>Использований: 10</li>
+                    <li>Скорость перемотки: 2.5с</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📛 Дополнительные медицинские предметы</h2>
+        <ul class="note-list">
+            <li>Хилки 20, 40, 60, 80, 100 ХП</li>
+            <li>Промедол (лечение перелома, лечение заражения крови)</li>
+        </ul>
+    </div>
+
+    <div class="section image-wrap">
+        <h2>🖼 Памятка по медицине</h2>
+        <img src="images/medicine-reference.png" alt="Инфографика по медицине">
+        <div class="img-note">
+            Инфографика.
+        </div>
+    </div>
+</div>
+
+<script>
+function goBack() {
+    window.location.href = "index.html";
+}
+</script>
+</body>
+</html>

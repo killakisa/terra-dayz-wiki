@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Детекторы и магнитные поля</title>
+
+<style>
+body {
+    margin: 0;
+    background: #0b0f0d;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 1050px;
+    margin: 40px auto;
+    padding: 0 16px;
+}
+
+.back {
+    cursor: pointer;
+    color: #9cff57;
+    margin-bottom: 16px;
+}
+
+.back:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    text-align: center;
+    color: #9cff57;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #9aa39d;
+    margin-bottom: 18px;
+}
+
+.section {
+    margin-top: 14px;
+    padding: 15px;
+    background: #111;
+    border-radius: 10px;
+    border: 1px solid #2b3a2f;
+}
+
+.section h2 {
+    margin: 0 0 10px 0;
+    color: #9cff57;
+    font-size: 20px;
+}
+
+.lead {
+    color: #c4cdc8;
+    line-height: 1.5;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 10px;
+}
+
+.card {
+    background: #151a17;
+    border: 1px solid #2b3a2f;
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.card h3 {
+    margin: 0 0 8px 0;
+    color: #9cff57;
+    font-size: 17px;
+}
+
+.card ul {
+    margin: 0;
+    padding-left: 18px;
+    color: #c4cdc8;
+    line-height: 1.45;
+    font-size: 14px;
+}
+
+.tips {
+    color: #c4cdc8;
+    line-height: 1.5;
+}
+
+.tips strong {
+    color: #ffd66f;
+}
+
+</style>
+</head>
+
+<body>
+<div class="container">
+    <div class="back" onclick="goBack()">← Назад</div>
+
+    <h1>Детекторы и магнитные поля</h1>
+
+    <div class="section">
+        <div class="lead">
+            Аномальные магнитные поля — это обломки неудачных экспериментов, оставшиеся в мире после катастрофы.
+            Для работы с ними используются детекторы, предназначенные для сканирования магнитных полей и поиска артефактов.
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Уровни детекторов</h2>
+        <div class="grid">
+            <div class="card">
+                <ul>
+                    <li>Искра-1 — начальный детектор.</li>
+                    <li>Крафтится на верстаке из детектора «Отклик», который приобретается у Чёрного трейдера.</li>
+                    <li>Нейтрон-3 — финальный уровень.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Чем выше уровень детектора</h2>
+        <div class="grid">
+            <div class="card">
+                <ul>
+                    <li>быстрее проходит сканирование;</li>
+                    <li>выше шанс найти полезные артефакты;</li>
+                    <li>ниже риск негативных эффектов.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="tips">
+            Шанс успешного сканирования указан в описании самого детектора.
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Зоны появления магнитных полей</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Deer Isle</h3>
+                <ul>
+                    <li>область вокруг кратера;</li>
+                    <li>Волчий остров;</li>
+                    <li>болота;</li>
+                    <li>верхний остров.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Chernarus / Summer</h3>
+                <ul>
+                    <li>Заболотье;</li>
+                    <li>окрестности Каменска;</li>
+                    <li>военная база Каменск.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Frostline</h3>
+                <ul>
+                    <li>вулкан;</li>
+                    <li>остров Шантар;</li>
+                    <li>районы с термальными источниками.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Побочные эффекты</h2>
+        <div class="tips">
+            Во время работы детектора возможны: заражение тяж. металлами, рвота, шок, порезы.
+            <br><br>
+            Лечение заражения тяжёлыми металлами — синие хелатиновые таблетки.
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Крафт детекторов</h2>
+        <div class="tips">
+            У Чёрного трейдера приобрести Отклик + собрать верстак + надеть перчатки для крафта предметов.
+            <br><br>
+            Взаимодействовать с верстаком + выбрать детектор — отображаются все уровни и необх. компоненты.
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Практический совет</h2>
+        <div class="tips">
+            💡 Детекторы потребляют много энергии. Батареи разряжаются быстро — это задуманная механика.
+            <br>
+            👉 Рекомендуется заранее запасаться батарейками.
+        </div>
+    </div>
+
+</div>
+
+<script>
+function goBack() {
+    window.location.href = "index.html";
+}
+</script>
+</body>
+</html>

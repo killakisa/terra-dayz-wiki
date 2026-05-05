@@ -13,9 +13,10 @@ body {
 }
 
 .container {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 80px auto;
     text-align: center;
+    padding: 0 16px;
 }
 
 h1 {
@@ -94,17 +95,16 @@ h1 {
 
 /* карточки */
 .cards {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    align-items: stretch;
 }
 
 .card {
     background: linear-gradient(145deg, #111, #1a1f1c);
     border: 1px solid #2b3a2f;
     padding: 20px;
-    width: 320px;
     border-radius: 14px;
     cursor: pointer;
     transition: 0.25s;
@@ -112,7 +112,7 @@ h1 {
 }
 
 .card:hover {
-    transform: scale(1.05);
+    transform: translateY(-3px);
     border-color: #9cff57;
     box-shadow: 0 0 20px rgba(156,255,87,0.35);
 }
@@ -150,39 +150,7 @@ h1 {
     <div id="results"></div>
 </div>
 
-<div class="cards">
-
-<div class="card" onclick="go('scanners.html')">
-    <div class="card-title">Сканер мутаций</div>
-    <div class="card-desc">Мутанты, локации и награды</div>
-</div>
-
-<div class="card" onclick="go('weapons.html')">
-    <div class="card-title">Оружие и урон</div>
-    <div class="card-desc">Характеристики оружия и урон</div>
-</div>
-
-<div class="card" onclick="go('mining.html')">
-    <div class="card-title">Добыча руды</div>
-    <div class="card-desc">Где искать и как перерабатывать</div>
-</div>
-
-<div class="card" onclick="go('weapon-trade.html')">
-    <div class="card-title">Легендарное оружие</div>
-    <div class="card-desc">Где добывать чертежи</div>
-</div>
-
-<div class="card" onclick="go('giftboxes.html')">
-    <div class="card-title">Гифтбоксы</div>
-    <div class="card-desc">Ежедневная рулетка, шансы и содержимое</div>
-</div>
-
-<div class="card" onclick="go('meat-canning.html')">
-    <div class="card-title">Консервация мяса</div>
-    <div class="card-desc">Полевая кухня, рецепты и заготовка банок</div>
-</div>
-
-</div>
+<div class="cards" id="cards"></div>
 
 <div class="footer">
 Terra DayZ Wiki
@@ -197,13 +165,35 @@ function go(page){
 
 /* 🔥 ДАННЫЕ ДЛЯ ПОИСКА */
 const DATA = [
-  { title:"Сканеры", url:"scanners.html", tags:"мутанты зомби сканер" },
-  { title:"Оружие и урон", url:"weapons.html", tags:"оружие урон ammo gun" },
-  { title:"Добыча руды", url:"mining.html", tags:"руда mining ресурсы" },
-  { title:"Легендарное оружие", url:"weapon-trade.html", tags:"чертежи чертеж план планы plan a b c d e f обмен оружия легенда терра black trade boss босс данж активность нефтевышка oilrig cherno deerisle frostline zoo maya tungar prison urup skalisty" },
-  { title:"Гифтбоксы", url:"giftboxes.html", tags:"гифтбокс giftbox ежедневная рулетка daily стандартный еда боеприпасы одежда коллекции инструменты оружейный легендарный шанс дроп предметы" },
-  { title:"Консервация мяса", url:"meat-canning.html", tags:"консервация консервы мясо полевая кухня набор для сборки мясорубка кастрюля книга рецептов перчатки пустая банка лист металла ножовка" }
+  { title:"Сканер мутаций", url:"scanners.html", desc:"Мутанты, локации и награды", tags:"мутанты зомби сканер" },
+  { title:"Оружие и урон", url:"weapons.html", desc:"Характеристики оружия и урон", tags:"оружие урон ammo gun" },
+  { title:"Добыча руды", url:"mining.html", desc:"Где искать и как перерабатывать", tags:"руда mining ресурсы" },
+  { title:"Легендарное оружие", url:"weapon-trade.html", desc:"Где добывать чертежи", tags:"чертежи чертеж план планы plan a b c d e f обмен оружия легенда терра black trade boss босс данж активность нефтевышка oilrig cherno deerisle frostline zoo maya tungar prison urup skalisty" },
+  { title:"Гифтбоксы", url:"giftboxes.html", desc:"Ежедневная рулетка, шансы и содержимое", tags:"гифтбокс giftbox ежедневная рулетка daily стандартный еда боеприпасы одежда коллекции инструменты оружейный легендарный шанс дроп предметы" },
+  { title:"Консервация мяса", url:"meat-canning.html", desc:"Полевая кухня, рецепты и заготовка банок", tags:"консервация консервы мясо полевая кухня набор для сборки мясорубка кастрюля книга рецептов перчатки пустая банка лист металла ножовка" },
+  { title:"Система начисления репутации", url:"reputation.html", desc:"Начисления, штрафы и уровни репутации", tags:"репутация система начисления уровни 10k 20k 30k 40k 50k боты зомби солдат медведь игрок группировки" },
+  { title:"Медицина", url:"medicine.html", desc:"Аптечки, бинты и медпредметы", tags:"медицина аптечка красная желтая синяя бинт военный медицинский клей бф-6 хилки промедол кровь порезы" },
+  { title:"Детекторы и магнитные поля", url:"detectors.html", desc:"Как работают детекторы, зоны и советы", tags:"детекторы магнитные поля артефакты сканирование батареи крафт побочные эффекты искорка deer isle chernarus frostline" },
+  { title:"Свойства артефактов", url:"artifacts.html", desc:"Плюсы и минусы артефактов по группам", tags:"артефакты свойства детектор detector scanner stag кровь здоровье еда вода порезы шок плюс минус ангел снежинка огненный шар оазис" }
 ];
+
+const SORTED_DATA = [...DATA].sort((a, b) =>
+    a.title.localeCompare(b.title, "ru")
+);
+
+function renderCards(){
+    const cards = document.getElementById("cards");
+    cards.innerHTML = "";
+
+    SORTED_DATA.forEach(item => {
+        cards.innerHTML += `
+            <div class="card" onclick="go('${item.url}')">
+                <div class="card-title">${item.title}</div>
+                <div class="card-desc">${item.desc || ""}</div>
+            </div>
+        `;
+    });
+}
 
 /* 🔥 ПОИСК */
 document.getElementById("search").addEventListener("input", function(){
@@ -215,7 +205,7 @@ document.getElementById("search").addEventListener("input", function(){
 
     if(q.length < 2) return;
 
-    let filtered = DATA.filter(item =>
+    let filtered = SORTED_DATA.filter(item =>
         item.title.toLowerCase().includes(q) ||
         item.tags.toLowerCase().includes(q)
     );
@@ -229,6 +219,8 @@ document.getElementById("search").addEventListener("input", function(){
     });
 
 });
+
+renderCards();
 </script>
 
 </body>

@@ -66,39 +66,39 @@ Revolver50Cal,50BMG,2500,0,Common
 KSVK,127x108,3500,5,Common
 Alligator,145x114,4500,5,Common
 AR50A1,20mm,5500,0,Common
-PKP VANGUARD,Vanguard,600,250,Uncommon
-PKM VANGUARD,Vanguard,570,250,Uncommon
-Beowulf VANGUARD,Vanguard,1100,100,Uncommon
-AS50 VANGUARD,Vanguard,3000,50,Uncommon
-ASH12 VANGUARD,Vanguard,1100,100,Uncommon
-BARRET VANGUARD,Vanguard,2900,50,Uncommon
-SCAR-H VANGUARD,Vanguard,550,150,Uncommon
-HoneyBadger VANGUARD,Vanguard,700,150,Uncommon
-PKP GUARDIAN,Guardian,700,250,Rare
-PKM GUARDIAN,Guardian,770,250,Rare
-Beowulf GUARDIAN,Guardian,1300,100,Rare
-AS50 GUARDIAN,Guardian,3500,50,Rare
-ASH12 GUARDIAN,Guardian,1300,100,Rare
-BARRET GUARDIAN,Guardian,3400,50,Rare
-SCAR-H GUARDIAN,Guardian,800,150,Rare
-HoneyBadger GUARDIAN,Guardian,900,150,Rare
-PKP STALWART,Stalwart,1000,250,Epic
-PKM STALWART,Stalwart,970,250,Epic
-Beowulf STALWART,Stalwart,1800,100,Epic
-AS50 STALWART,Stalwart,4500,50,Epic
-ASH12 STALWART,Stalwart,1800,100,Epic
-BARRET STALWART,Stalwart,4400,50,Epic
-SCAR-H STALWART,Stalwart,1200,150,Epic
-HoneyBadger STALWART,Stalwart,1500,150,Epic
-PKP Color,Color,1500,250,Mythic
-PKP Tactical Color,Color,1500,250,Mythic
-VSK94 Color,Color,2300,150,Mythic
-Beowulf Color,Color,2300,250,Mythic
-ASH12 Color,Color,2700,100,Mythic
-MDR Color,Color,2700,200,Mythic
-AK ALFA Color,Color,2700,200,Mythic
-MK-18 Mjolnir Color,Color,6000,50,Mythic
-Barret Color,Color,6600,50,Mythic
-DMR Color,Color,6600,50,Mythic
-KRISS Vector Legend,Color,6600,100,Legendary
-Cerber Legend,Color,1500,1000,Legendary
+PKP-Vanguard,Vanguard,600,250,Uncommon
+PKM-Vanguard,Vanguard,570,250,Uncommon
+Beowulf-Vanguard,Vanguard,1100,100,Uncommon
+AS50-Vanguard,Vanguard,3000,50,Uncommon
+ASH12-Vanguard,Vanguard,1100,100,Uncommon
+BARRET-Vanguard,Vanguard,2900,50,Uncommon
+SCAR-H-Vanguard,Vanguard,550,150,Uncommon
+HoneyBadger-Vanguard,Vanguard,700,150,Uncommon
+PKP-Guardian,Guardian,700,250,Rare
+PKM-Guardian,Guardian,770,250,Rare
+Beowulf-Guardian,Guardian,1300,100,Rare
+AS50-Guardian,Guardian,3500,50,Rare
+ASH12-Guardian,Guardian,1300,100,Rare
+BARRET-Guardian,Guardian,3400,50,Rare
+SCAR-H-Guardian,Guardian,800,150,Rare
+HoneyBadger-Guardian,Guardian,900,150,Rare
+PKP-Stalwart,Stalwart,1000,250,Epic
+PKM-Stalwart,Stalwart,970,250,Epic
+Beowulf-Stalwart,Stalwart,1800,100,Epic
+AS50-Stalwart,Stalwart,4500,50,Epic
+ASH12-Stalwart,Stalwart,1800,100,Epic
+BARRET-Stalwart,Stalwart,4400,50,Epic
+SCAR-H-Stalwart,Stalwart,1200,150,Epic
+HoneyBadger-Stalwart,Stalwart,1500,150,Epic
+PKP-Color,Color,1500,250,Mythic
+PKP-Tactical-Color,Color,1500,250,Mythic
+VSK94-Color,Color,2300,150,Mythic
+Beowulf-Color,Color,2300,250,Mythic
+ASH12-Color,Color,2700,100,Mythic
+MDR-Color,Color,2700,200,Mythic
+AK-ALFA Color,Color,2700,200,Mythic
+MK-18-Mjolnir Color,Color,6000,50,Mythic
+Barret-Color,Color,6600,50,Mythic
+DMR-Color,Color,6600,50,Mythic
+KRISS-Vector-Legend,Color,6600,100,Legendary
+Cerber-Legend,Color,1500,1000,Legendary

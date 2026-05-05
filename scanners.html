@@ -270,13 +270,14 @@ function showZombies() {
     list.forEach(z => {
 
     const name = z.ZombieNameRU || z.ZombieName || "???";
-    const img = "images/" + z.ZombieName + ".png";
+    const img = "images/" + (z.ZombieName || "").trim() + ".png";
 
         html += `
         <div class="mob">
 
-            <img class="mob-img" src="${img}" 
-                onerror="this.src='images/default.png'">
+            <img class="mob-img"
+                 src="${img}"
+                 onerror="this.onerror=null; this.src='images/default.png';">
 
             <div class="mob-content">
 

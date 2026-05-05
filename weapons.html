@@ -6,57 +6,68 @@
 
 <style>
 body {
-    margin: 0;
-    background: #0b0f0d;
-    color: #fff;
-    font-family: Arial;
+    margin:0;
+    background:#0b0f0d;
+    color:#fff;
+    font-family:Arial;
 }
 
-.container {
-    max-width: 1000px;
-    margin: 40px auto;
+.container{
+    max-width:1000px;
+    margin:40px auto;
 }
 
-h1 {
-    color: #9cff57;
-    text-align: center;
+h1{
+    color:#9cff57;
+    text-align:center;
 }
 
-input {
-    width: 100%;
-    padding: 10px;
-    margin: 15px 0;
-    background: #111;
-    border: 1px solid #2b3a2f;
-    border-radius: 8px;
-    color: #fff;
+/* фильтры */
+.filters{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
 }
 
-.table {
-    width: 100%;
-    border-collapse: collapse;
+input, select{
+    padding:8px;
+    background:#111;
+    border:1px solid #2b3a2f;
+    border-radius:6px;
+    color:#fff;
 }
 
-.table th {
-    background: #111;
-    color: #9cff57;
-    padding: 10px;
-    text-align: left;
+/* карточки */
+.card{
+    display:flex;
+    gap:15px;
+    padding:15px;
+    border:1px solid #1f2a22;
+    border-radius:10px;
+    margin-bottom:10px;
+    background:#0f1512;
+    transition:0.2s;
 }
 
-.table td {
-    padding: 8px;
-    border-bottom: 1px solid #1f2a22;
+.card:hover{
+    background:#16201b;
+    transform:scale(1.01);
 }
 
-.table tr:hover {
-    background: #1a1f1c;
+.weapon-name{
+    font-size:16px;
+    font-weight:700;
 }
 
-.back {
-    margin-bottom: 20px;
-    cursor: pointer;
-    color: #9cff57;
+.stat{
+    font-size:13px;
+    color:#aaa;
+}
+
+/* урон */
+.damage{
+    font-weight:700;
 }
 </style>
 </head>
@@ -65,124 +76,118 @@ input {
 
 <div class="container">
 
-<div class="back" onclick="goBack()">← Назад</div>
-
 <h1>Оружие и урон</h1>
 
-<input id="search" placeholder="Поиск оружия..." oninput="render()">
+<div class="filters">
+    <input id="search" placeholder="Поиск..." oninput="render()">
 
-<table class="table">
-<thead>
-<tr>
-<th>Оружие</th>
-<th>Патрон</th>
-<th>Урон</th>
-<th>Магазин</th>
-</tr>
-</thead>
-<tbody id="list"></tbody>
-</table>
+    <select id="tier" onchange="render()">
+        <option value="">Все tier</option>
+        <option>guardian</option>
+        <option>stalwart</option>
+        <option>color</option>
+        <option>legend</option>
+    </select>
+
+    <input id="ammo" placeholder="Патрон..." oninput="render()">
+
+    <input type="number" id="dmg" placeholder="Мин. урон" oninput="render()">
+</div>
+
+<div id="list"></div>
 
 </div>
 
 <script>
+
 let weapons = [];
 
-async function loadCSV(file) {
-    const text = await fetch(file).then(r => r.text());
+async function loadCSV(file){
+    const text = await fetch(file).then(r=>r.text());
     return parseCSV(text);
 }
 
-function goBack(){
-    window.location.href = "index.html";
-}
-
-function parseCSV(text) {
-    const rows = [];
-    let row = [];
-    let current = '';
-    let insideQuotes = false;
-
-    for (let char of text) {
-        if (char === '"') insideQuotes = !insideQuotes;
-        else if (char === ',' && !insideQuotes) {
-            row.push(current.trim());
-            current = '';
-        }
-        else if (char === '\n' && !insideQuotes) {
-            row.push(current.trim());
-            rows.push(row);
-            row = [];
-            current = '';
-        }
-        else current += char;
-    }
-
+function parseCSV(text){
+    const rows = text.split("\n").map(r=>r.split(","));
     const headers = rows[0];
 
-    return rows.slice(1).map(r => {
-        let obj = {};
-        headers.forEach((h, i) => {
-            obj[h] = r[i];
-        });
+    return rows.slice(1).map(r=>{
+        let obj={};
+        headers.forEach((h,i)=>obj[h]=r[i]);
         return obj;
     });
+}
+
+function getTierColor(name){
+    if(!name) return "#fff";
+    name = name.toLowerCase();
+
+    if(name.includes("guardian")) return "#4da6ff";
+    if(name.includes("stalwart")) return "#c77dff";
+    if(name.includes("color")) return "#ff8c42";
+    if(name.includes("legend")) return "#ffd700";
+
+    return "#aaa";
+}
+
+function cleanName(name){
+    return name
+        .replace(/guardian/gi,"")
+        .replace(/stalwart/gi,"")
+        .replace(/color/gi,"")
+        .replace(/legend/gi,"")
+        .trim();
 }
 
 function render(){
 
     const list = document.getElementById("list");
+
     const search = document.getElementById("search").value.toLowerCase();
+    const tier = document.getElementById("tier").value.toLowerCase();
+    const ammo = document.getElementById("ammo").value.toLowerCase();
+    const dmg = Number(document.getElementById("dmg").value || 0);
 
     list.innerHTML = "";
 
-    weapons.forEach(w => {
+    weapons.forEach(w=>{
 
-        if(w.Weapon.toLowerCase().includes(search)){
+        const name = w.Weapon || "";
+        const a = w.Ammo || "";
+        const d = Number(w.Damage || 0);
 
-            list.innerHTML += `
-            <tr>
-                <td style="color:${getTierColor(w.Tier)}; font-weight:600">
-                    ${w.Weapon}
-                </td>
-                <td>${w.Ammo}</td>
-                <td>${colorDamage(w.Damage)}</td>
-                <td>${w.Magazine}</td>
-            </tr>
-            `;
-        }
+        if(search && !name.toLowerCase().includes(search)) return;
+        if(tier && !name.toLowerCase().includes(tier)) return;
+        if(ammo && !a.toLowerCase().includes(ammo)) return;
+        if(d < dmg) return;
+
+        list.innerHTML += `
+        <div class="card">
+
+            <div>
+                <div class="weapon-name"
+                    style="color:${getTierColor(name)};
+                    text-shadow:0 0 6px ${getTierColor(name)}">
+                    ${cleanName(name)}
+                </div>
+
+                <div class="stat">Патрон: ${a.replace("Ammo_","")}</div>
+                <div class="stat damage">Урон: ${d}</div>
+                <div class="stat">Магазин: ${w.Magazine}</div>
+            </div>
+
+        </div>
+        `;
     });
 }
 
-// 🔥 цвет урона
-function colorDamage(d){
-
-    if(d >= 2000) return `<span style="color:#ff4d4d">${d}</span>`; // 🔴 имба
-    if(d >= 1000) return `<span style="color:#c77dff">${d}</span>`; // 🟣 топ
-    if(d >= 300) return `<span style="color:#4da6ff">${d}</span>`; // 🔵 среднее
-
-    return d;
-}
-function getTierColor(tier){
-
-    const map = {
-        "Common": "#aaa",
-        "Uncommon": "#6cff57",
-        "Rare": "#4da6ff",
-        "Epic": "#c77dff",
-        "Mythic": "#ff8c42",
-        "Legendary": "#ffd700"
-    };
-
-    return map[tier] || "#fff";
-}
-render();
-async function init() {
+async function init(){
     weapons = await loadCSV("WEAPONS.csv");
     render();
 }
 
-window.onload = init;
+init();
+
 </script>
 
 </body>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Terra Wiki</title>
+
+<style>
+body {
+    margin: 0;
+    background: #0b0f0d;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+/* контейнер */
+.container {
+    max-width: 900px;
+    margin: 80px auto;
+    text-align: center;
+}
+
+/* заголовок */
+h1 {
+    font-size: 40px;
+    margin-bottom: 40px;
+    color: #9cff57;
+    letter-spacing: 2px;
+}
+
+/* кнопка раздела */
+.card {
+    background: linear-gradient(145deg, #111, #1a1f1c);
+    border: 1px solid #2b3a2f;
+    padding: 20px;
+    margin: 15px auto;
+    width: 300px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 18px;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    border-color: #9cff57;
+    box-shadow: 0 0 15px rgba(156,255,87,0.3);
+}
+
+/* кнопка */
+button {
+    background: #9cff57;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>TERRA WIKI</h1>
+
+<div class="card" onclick="go('scanners.html')">
+    Сканер мутаций
+</div>
+
+</div>
+
+<script>
+function go(page){
+    window.location.href = page;
+}
+</script>
+
+</body>
+</html>

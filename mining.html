@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Добыча руды</title>
+
+<style>
+body {
+    margin: 0;
+    background: radial-gradient(circle at top, #0f1a14, #070a08);
+    color: #fff;
+    font-family: Arial;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+}
+
+h1 {
+    color: #9cff57;
+    text-align: center;
+}
+
+/* секции */
+.section {
+    margin: 30px 0;
+    padding: 20px;
+    background: linear-gradient(145deg, #0f1512, #0b0f0d);
+    border: 1px solid #1f2a22;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    transition: 0.2s;
+}
+
+.section:hover{
+    border-color:#9cff57;
+    transform: scale(1.01);
+}
+
+.title {
+    color: #9cff57;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.title::before{
+    content:"▸ ";
+}
+
+/* текст */
+.list {
+    color: #ccc;
+    margin-left: 15px;
+    line-height: 1.6;
+}
+
+.common { color: #9aa0a6; }
+.uncommon { color: #6cff57; }
+.rare { color:#4da6ff; text-shadow:0 0 6px rgba(77,166,255,0.6); }
+.epic { color:#b36cff; text-shadow:0 0 6px rgba(179,108,255,0.6); }
+.mythic { color:#ff8c42; text-shadow:0 0 6px rgba(255,140,66,0.6); }
+
+/* карты */
+.map {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 15px;
+    border: 1px solid #2b3a2f;
+    box-shadow: 0 0 20px rgba(156,255,87,0.15);
+}
+
+.map-caption{
+    color:#888;
+    font-size:12px;
+    margin-top:5px;
+}
+
+/* кнопка назад */
+.back {
+    color:#9cff57;
+    cursor:pointer;
+    margin-bottom:20px;
+}
+
+.back:hover {
+    text-decoration: underline;
+}
+
+/* вкладки */
+.tabs{
+    display:flex;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.tabs button{
+    background:#111;
+    border:1px solid #2b3a2f;
+    color:#9cff57;
+    padding:6px 12px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.tabs button:hover{
+    background:#1a2a22;
+}
+
+.tabs button.active{
+    background:#9cff57;
+    color:#000;
+}
+
+.hidden{
+    display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="back" onclick="goBack()">← Назад</div>
+
+<h1>Добыча и переработка руды</h1>
+
+<div class="section">
+    <div class="title">Добыча руды</div>
+    <div class="list">
+        При вскапывании руды вы получаете:<br><br>
+        • <span>Камень</span><br>
+        • <span class="common">Кусочек руды</span><br>
+        • <span class="epic">Самородок (редко)</span>
+    </div>
+</div>
+
+<div class="section">
+    <div class="title">Обработка кусочков руды</div>
+    <div class="list">
+        Кусочки руды можно разбить с помощью кувалды.<br><br>
+        В результате вы получите:<br><br>
+        • <span class="rare">Драгоценные камни</span><br>
+        • <span class="epic">Самородок той же руды</span>
+    </div>
+</div>
+
+<div class="section">
+    <div class="title">Плавка</div>
+    <div class="list">
+        • Обычные кусочки руды → <span class="uncommon">Простые слитки</span><br>
+        • Самородки руды → <span class="mythic">Чистые слитки</span>
+    </div>
+</div>
+
+<div class="section">
+    <div class="title">Карта месторождений</div>
+
+    <div class="tabs">
+        <button class="active" onclick="showMap(event,'deer')">Deerisle</button>
+        <button onclick="showMap(event,'cherno')">Cherno</button>
+        <button onclick="showMap(event,'frost')">Frostline</button>
+    </div>
+
+    <img id="map-deer" class="map" src="images/map_deer.png">
+    <img id="map-cherno" class="map hidden" src="images/map-cherno.png">
+    <img id="map-frost" class="map hidden" src="images/map-frost.png">
+
+    <div id="map-caption" class="map-caption">
+        Deerisle — месторождения руды
+    </div>
+
+</div>
+
+</div>
+
+<script>
+function showMap(e,type){
+
+    document.getElementById("map-deer").classList.add("hidden");
+    document.getElementById("map-cherno").classList.add("hidden");
+    document.getElementById("map-frost").classList.add("hidden");
+
+    document.getElementById("map-" + type).classList.remove("hidden");
+
+    document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
+    e.target.classList.add("active");
+
+    const captions = {
+        deer: "Deerisle — месторождения руды",
+        cherno: "Cherno — месторождения руды",
+        frost: "Frostline — месторождения руды"
+    };
+
+    document.getElementById("map-caption").innerText = captions[type];
+}
+
+function goBack(){
+    window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

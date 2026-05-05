@@ -86,42 +86,48 @@ input {
 </div>
 
 <script>
-
 let weapons = [];
+
+async function loadCSV(file) {
+    const text = await fetch(file).then(r => r.text());
+    return parseCSV(text);
+}
 
 function goBack(){
     window.location.href = "index.html";
 }
 
-// 🔥 данные прямо в коде (можно потом вынести в CSV)
-weapons = [
-{w:"Glock17",a:"9x19",d:40,m:30},
-{w:"M1928A1",a:"45ACP",d:40,m:100},
-{w:"MP5SD",a:"9x19",d:40,m:30},
-{w:"Vector",a:"45ACP",d:40,m:30},
+function parseCSV(text) {
+    const rows = [];
+    let row = [];
+    let current = '';
+    let insideQuotes = false;
 
-{w:"AKM",a:"7.62x39",d:110,m:75},
-{w:"M16A4",a:"5.56x45",d:110,m:100},
-{w:"FAMAS",a:"5.56x45",d:110,m:100},
+    for (let char of text) {
+        if (char === '"') insideQuotes = !insideQuotes;
+        else if (char === ',' && !insideQuotes) {
+            row.push(current.trim());
+            current = '';
+        }
+        else if (char === '\n' && !insideQuotes) {
+            row.push(current.trim());
+            rows.push(row);
+            row = [];
+            current = '';
+        }
+        else current += char;
+    }
 
-{w:"PKM",a:"7.62x54",d:150,m:150},
-{w:"PKP",a:"7.62x54",d:150,m:200},
+    const headers = rows[0];
 
-{w:"VSSK",a:"12.7x55",d:800,m:5},
-{w:"ASH12",a:"12.7x55",d:800,m:20},
-
-{w:"AWM",a:".338",d:900,m:5},
-{w:"DVL10",a:".338",d:900,m:5},
-
-{w:"M300",a:".408",d:1600,m:7},
-
-{w:"AS50",a:"50BMG",d:2500,m:10},
-{w:"M82A2",a:"50BMG",d:2500,m:10},
-
-{w:"KSVK",a:"12.7x108",d:3500,m:5},
-{w:"Alligator",a:"14.5x114",d:4500,m:5},
-{w:"AR50A1",a:"20mm",d:5500,m:0}
-];
+    return rows.slice(1).map(r => {
+        let obj = {};
+        headers.forEach((h, i) => {
+            obj[h] = r[i];
+        });
+        return obj;
+    });
+}
 
 function render(){
 
@@ -132,14 +138,16 @@ function render(){
 
     weapons.forEach(w => {
 
-        if(w.w.toLowerCase().includes(search)){
+        if(w.Weapon.toLowerCase().includes(search)){
 
             list.innerHTML += `
             <tr>
-                <td>${w.w}</td>
-                <td>${w.a}</td>
-                <td>${colorDamage(w.d)}</td>
-                <td>${w.m}</td>
+                <td style="color:${getTierColor(w.Tier)}; font-weight:600">
+                    ${w.Weapon}
+                </td>
+                <td>${w.Ammo}</td>
+                <td>${colorDamage(w.Damage)}</td>
+                <td>${w.Magazine}</td>
             </tr>
             `;
         }
@@ -155,9 +163,26 @@ function colorDamage(d){
 
     return d;
 }
+function getTierColor(tier){
 
+    const map = {
+        "Common": "#aaa",
+        "Uncommon": "#6cff57",
+        "Rare": "#4da6ff",
+        "Epic": "#c77dff",
+        "Mythic": "#ff8c42",
+        "Legendary": "#ffd700"
+    };
+
+    return map[tier] || "#fff";
+}
 render();
+async function init() {
+    weapons = await loadCSV("WEAPONS.csv");
+    render();
+}
 
+window.onload = init;
 </script>
 
 </body>

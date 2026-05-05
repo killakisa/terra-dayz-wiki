@@ -1,0 +1,104 @@
+Weapon,Ammo,Damage,Magazine,Tier
+Glock17,Ammo_9x19,40,30,Common
+M1928A1,Ammo_45ACP,40,100,Common
+SUB2000,Ammo_9x19,40,30,Common
+SUB2000_Suppressed,Ammo_9x19,40,30,Common
+MP5SD,Ammo_9x19,40,30,Common
+Vector,Ammo_45ACP,40,30,Common
+Scorpion,Ammo_9x19,40,30,Common
+VSK94,Ammo_9x39,75,20,Common
+PPSh,Ammo_762x25,80,71,Common
+M249,Ammo_556x45,110,200,Common
+SKS,Ammo_762x39,110,20,Common
+MBR,Ammo_556x45,110,60,Common
+AKM,Ammo_762x39,110,75,Common
+M16A4,Ammo_556x45,110,100,Common
+FAMAS,Ammo_556x45,110,100,Common
+AK15,Ammo_762x39,110,75,Common
+Mk18,Ammo_556x45,110,60,Common
+AKALPHA,Ammo_762x39,110,75,Common
+AR15Skeleton,Ammo_556x45,110,60,Common
+MCR,Ammo_556x45,110,60,Common
+TAR21,Ammo_556x45,110,60,Common
+RPK16,Ammo_545x39,115,96,Common
+AK12,Ammo_545x39,115,45,Common
+AEK971,Ammo_545x39,115,45,Common
+CS5,Ammo_308WinAP,140,10,Common
+M60E3,Ammo_308WinAP,140,100,Common
+HK21,Ammo_308WinAP,140,50,Common
+M110,Ammo_308WinAP,140,20,Common
+HK417,Ammo_308WinAP,140,20,Common
+MDR,Ammo_308WinAP,140,50,Common
+R700,Ammo_308WinAP,140,7,Common
+SA58,Ammo_308WinAP,140,50,Common
+SCARH,Ammo_308WinAP,140,50,Common
+RSASS,Ammo_308WinAP,140,20,Common
+SVU,Ammo_762x54,150,10,Common
+PKM,Ammo_762x54,150,150,Common
+PKP_Tac,Ammo_762x54,150,150,Common
+PKP,Ammo_762x54,150,200,Common
+SV98,Ammo_762x54,150,10,Common
+AK458_Plastic,Ammo_458,150,20,Common
+AK47,Ammo_762x54,150,20,Common
+Evolys, Ammo_308Win150,10,Common
+K98,Ammo_792x57150,0,Common
+VR80,Ammo_12gaPellets,35x8=280,30,Common
+VSSK,Ammo_127x55,800,5,Common
+ASH12,Ammo_127x55,800,20,Common
+Beowulf,Ammo_50calBW 800,10,Common
+SRS338, Ammo_338,900,8,Common
+Ruger,Ammo_338,900,5,Common
+AWM,Ammo_338, 900,5,Common
+DVL10,Ammo_338,900,5,Common
+Kivaari,Ammo_338,900,10,Common
+DVL10M1,Ammo_40lw,1000,5,Common
+M300,Ammo_408,1600,7,Common
+M300M,Ammo_408, 1600,7,Common
+M200,Ammo_408, 1600,7,Common
+SRS408, Ammo_408, 1600,5,Common
+KS23,Ammo_23x75,150x15=2250,0,Common
+AS50,Ammo_50BMG,2500,10,Common
+GM6Lynx,Ammo_50BMG,2500,5,Common
+CSR50,Ammo_50BMG,2500,0,Common
+AX50,Ammo_50BMG,2500,5,Common
+M82A2,Ammo_50BMG,2500,10,Common
+Revolver50Cal,Ammo_50BMG,2500,0,Common
+KSVK,Ammo_127x108,3500,5,Common
+Alligator,Ammo_145x114,4500,5,Common
+AR50A1,Ammo_20mm,5500,0,Common
+PKP VANGUARD,Ammo PKP Vanguard,600,250,Uncommon
+PKM VANGUARD,Ammo PKM Vanguard,570,250,Uncommon
+Beowulf VANGUARD,Ammo,1100,100,Uncommon
+AS50 VANGUARD,Ammo,3000,50,Uncommon
+ASH12 VANGUARD,Ammo,1100,100,Uncommon
+BARRET VANGUARD,Ammo,2900,50,Uncommon
+SCAR-H VANGUARD,Ammo,550,150,Uncommon
+HoneyBadger VANGUARD,Ammo,700,150,Uncommon
+PKP GUARDIAN,Ammo PKP Guardian,700,250,Rare
+PKM GUARDIAN,Ammo PKM Guardian,770,250,Rare
+Beowulf GUARDIAN,Ammo,1300,100,Rare
+AS50 GUARDIAN,Ammo,3500,50,Rare
+ASH12 GUARDIAN,Ammo,1300,100,Rare
+BARRET GUARDIAN,Ammo,3400,50,Rare
+SCAR-H GUARDIAN,Ammo,800,150,Rare
+HoneyBadger GUARDIAN,Ammo,900,150,Rare
+PKP STALWART,Ammo,1000,250,Epic
+PKM STALWART,Ammo,970,250,Epic
+Beowulf STALWART,Ammo,1800,100,Epic
+AS50 STALWART,Ammo,4500,50,Epic
+ASH12 STALWART,Ammo,1800,100,Epic
+BARRET STALWART,Ammo,4400,50,Epic
+SCAR-H STALWART,Ammo,1200,150,Epic
+HoneyBadger STALWART,Ammo,1500,150,Epic
+PKP Color,Ammo,1500,250,Mythic
+PKP Tactical Color,Ammo,1500,250,Mythic
+VSK94 Color,Ammo,2300,150,Mythic
+Beowulf Color,Ammo,2300,250,Mythic
+ASH12 Color,Ammo,2700,100,Mythic
+MDR Color,Ammo,2700,200,Mythic
+AK ALFA Color,Ammo,2700,200,Mythic
+MK-18 Mjolnir Color,Ammo,6000,50,Mythic
+Barret Color,Ammo,6600,50,Mythic
+DMR Color,Ammo,6600,50,Mythic
+KRISS Vector Legend,Ammo,6600,100,Legendary
+Cerber Legend,Ammo,1500,1000,Legendary

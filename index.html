@@ -12,14 +12,12 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* контейнер */
 .container {
     max-width: 900px;
     margin: 80px auto;
     text-align: center;
 }
 
-/* заголовок */
 h1 {
     font-size: 42px;
     margin-bottom: 10px;
@@ -27,13 +25,74 @@ h1 {
     letter-spacing: 2px;
 }
 
-/* подзаголовок */
 .subtitle {
     color: #777;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
-/* блок кнопок */
+/* 🔥 ПОИСК */
+#search {
+    width: 350px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #2b3a2f;
+    background: #0f1512;
+    color: #fff;
+    outline: none;
+    margin-bottom: 20px;
+}
+
+#search:focus {
+    border-color:#9cff57;
+    box-shadow:0 0 10px rgba(156,255,87,0.3);
+}
+
+
+.search-box{
+    position: relative;
+    width: 350px;
+    margin: auto;
+}
+
+/* контейнер результатов */
+#results{
+    position: absolute;
+    top: 105%;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(145deg, #0f1512, #0b0f0d);
+    border: 1px solid #2b3a2f;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+    overflow: hidden;
+    z-index: 10;
+}
+
+/* элемент результата */
+.result{
+    padding: 12px 14px;
+    cursor: pointer;
+    transition: 0.2s;
+    border-bottom: 1px solid #1a241d;
+}
+
+/* последний без линии */
+.result:last-child{
+    border-bottom: none;
+}
+
+/* hover */
+.result:hover{
+    background: linear-gradient(90deg, #1a2a22, #0f1512);
+    color: #9cff57;
+}
+
+/* скрытие если пусто */
+#results:empty{
+    display: none;
+}
+
+/* карточки */
 .cards {
     display: flex;
     flex-direction: column;
@@ -41,7 +100,6 @@ h1 {
     align-items: center;
 }
 
-/* карточка */
 .card {
     background: linear-gradient(145deg, #111, #1a1f1c);
     border: 1px solid #2b3a2f;
@@ -53,27 +111,23 @@ h1 {
     text-align: left;
 }
 
-/* hover */
 .card:hover {
     transform: scale(1.05);
     border-color: #9cff57;
     box-shadow: 0 0 20px rgba(156,255,87,0.35);
 }
 
-/* название */
 .card-title {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 6px;
 }
 
-/* описание */
 .card-desc {
     font-size: 13px;
     color: #888;
 }
 
-/* футер */
 .footer {
     margin-top: 60px;
     font-size: 12px;
@@ -88,6 +142,13 @@ h1 {
 
 <h1>TERRA WIKI</h1>
 <div class="subtitle">Информация по серверу Terra DayZ</div>
+
+<!-- 🔥 ПОИСК -->
+
+<div class="search-box">
+    <input id="search" placeholder="Поиск по вики...">
+    <div id="results"></div>
+</div>
 
 <div class="cards">
 
@@ -118,6 +179,38 @@ Terra DayZ Wiki
 function go(page){
     window.location.href = page;
 }
+
+/* 🔥 ДАННЫЕ ДЛЯ ПОИСКА */
+const DATA = [
+  { title:"Сканеры", url:"scanners.html", tags:"мутанты зомби сканер" },
+  { title:"Оружие и урон", url:"weapons.html", tags:"оружие урон ammo gun" },
+  { title:"Добыча руды", url:"mining.html", tags:"руда mining ресурсы" }
+];
+
+/* 🔥 ПОИСК */
+document.getElementById("search").addEventListener("input", function(){
+
+    let q = this.value.toLowerCase();
+    let results = document.getElementById("results");
+
+    results.innerHTML = "";
+
+    if(q.length < 2) return;
+
+    let filtered = DATA.filter(item =>
+        item.title.toLowerCase().includes(q) ||
+        item.tags.toLowerCase().includes(q)
+    );
+
+    filtered.forEach(item=>{
+        let div = document.createElement("div");
+        div.className = "result";
+        div.innerText = item.title;
+        div.onclick = ()=> window.location.href = item.url;
+        results.appendChild(div);
+    });
+
+});
 </script>
 
 </body>

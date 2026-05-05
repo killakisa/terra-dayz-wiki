@@ -25,6 +25,23 @@ body {
     margin-bottom: 20px;
 }
 
+.server-filter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #9aa39d;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.server-filter select {
+    background: #111;
+    border: 1px solid #2b3a2f;
+    color: #fff;
+    border-radius: 6px;
+    padding: 6px 10px;
+}
+
 /* кнопка назад */
 .back {
     cursor: pointer;
@@ -120,9 +137,80 @@ button:hover {
     font-weight: bold;
 }
 
+.mob-title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.hp-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid #2b3a2f;
+    background: #0f1512;
+    color: #9cff57;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.hp-badge.boss {
+    color: #ffd700;
+    border-color: rgba(255,215,0,0.55);
+    box-shadow: 0 0 6px rgba(255,215,0,0.35);
+}
+
 .mob-loc {
     font-size: 13px;
     color: gray;
+}
+
+.guide {
+    margin-bottom: 18px;
+}
+
+.guide h3 {
+    margin: 0 0 10px 0;
+    color: #9cff57;
+}
+
+.guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.guide-card {
+    background: #151a17;
+    border: 1px solid #2b3a2f;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.guide-card h4 {
+    margin: 0 0 8px 0;
+}
+
+.guide-card ul {
+    margin: 0;
+    padding-left: 16px;
+    color: #b5beb9;
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+.guide-note {
+    background: #151a17;
+    border: 1px solid #2b3a2f;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 8px;
+    color: #b5beb9;
+    font-size: 13px;
+    line-height: 1.45;
 }
 </style>
 </head>
@@ -137,6 +225,62 @@ button:hover {
 
 <h1>Сканеры</h1>
 
+<div class="detail guide">
+    <h3>Руководство по использованию сканеров мутаций</h3>
+
+    <div class="guide-grid">
+        <div class="guide-card">
+            <h4>🟢 Сканер мутаций 1 уровня</h4>
+            <ul>
+                <li>Приобретение: у ученых за декларации группировки.</li>
+                <li>Время сканирования: 6 секунд.</li>
+                <li>Шанс успеха: 30%.</li>
+                <li>Сканируемые мутанты: 10 типов.</li>
+                <li>Предметы: базовый список мутагенов, артефактов и веществ (11 видов).</li>
+            </ul>
+        </div>
+
+        <div class="guide-card">
+            <h4>🟡 Сканер мутаций 2 уровня</h4>
+            <ul>
+                <li>Улучшение: из версии 1 уровня у ученых за декларации группировки.</li>
+                <li>Время сканирования: 4 секунды.</li>
+                <li>Шанс успеха: 45%.</li>
+                <li>Сканируемые мутанты: 12 типов.</li>
+                <li>Предметы: расширенный список мутагенов, артефактов и биоматериалов (13 видов).</li>
+            </ul>
+        </div>
+
+        <div class="guide-card">
+            <h4>🔴 Сканер мутаций 3 уровня</h4>
+            <ul>
+                <li>Улучшение: из версии 2 уровня у ученых за декларации группировки.</li>
+                <li>Конфигурации: две (для мутантов и для боссов).</li>
+                <li>1-я конфигурация: 2 сек, 60% шанс, 17 типов мутантов, полный список мутагенов и артефактов.</li>
+                <li>2-я конфигурация (боссы): 100% шанс, редкие мутагены и артефакты, включая Оазис и Темный ангел.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="guide-note">
+        <strong>⚙ Инструкции по использованию:</strong> наведите курсор на труп мутанта, запустите сканирование,
+        затем при успехе подберите добычу с земли. Устройство расходует батареи при каждом использовании.
+    </div>
+
+    <div class="guide-note">
+        <strong>🚨 Меры предосторожности:</strong> некоторые мутагены могут иметь как положительные, так и отрицательные эффекты.
+        Для нейтрализации негативных эффектов используйте специализированный контейнер для артефактов.
+    </div>
+</div>
+
+<div class="server-filter">
+    <span>Сервер для отображения мутантов:</span>
+    <select id="serverSelect" onchange="setServer(this.value)">
+        <option value="Deerisle">Deerisle</option>
+        <option value="Cherno">Cherno</option>
+        <option value="Frostline">Frostline</option>
+    </select>
+</div>
 
 <div id="scannerList"></div>
 
@@ -158,12 +302,23 @@ button:hover {
 let loot = [];
 let scanners = [];
 let zombies = [];
+let hpRows = [];
+let hpMap = new Map();
 let current = null;
+let currentView = null;
 
 let SERVER = "Deerisle";
 
 function goBack(){
     window.location.href = "index.html";
+}
+
+function setServer(server){
+    SERVER = server;
+
+    if (current && currentView === "zombies") {
+        showZombies();
+    }
 }
 
 // CSV парсер
@@ -214,9 +369,11 @@ async function loadCSV(file) {
 }
 
 async function init() {
-    scanners = await loadCSV("SKAN-Scanners.csv");
-    zombies = await loadCSV("SKAN-Zombies.csv");
-    loot = await loadCSV("SKAN-Loot.csv");
+    scanners = await loadCSV("data/SKAN-Scanners.csv");
+    zombies = await loadCSV("data/SKAN-Zombies.csv");
+    loot = await loadCSV("data/SKAN-Loot.csv");
+    hpRows = await loadCSV("data/ZOMBIE-HP.csv");
+    hpMap = new Map(hpRows.map(r => [(r.classname || "").trim(), Number(r.hp || 0)]));
     renderScanners();
 }
 
@@ -244,7 +401,7 @@ function openScanner(id) {
     document.getElementById("detail").style.display = "block";
     document.getElementById("title").innerText = "Сканер " + id + " ур.";
     document.getElementById("info").innerText =
-        "Время: " + s.ScanTime + " сек | Шанс: " + s.Chance + "%";
+        "Время: " + s.ScanTime + " сек | Шанс: " + s.Chance + "% | Сервер: " + SERVER;
 
     document.getElementById("content").innerHTML = "";
 }
@@ -252,12 +409,45 @@ function colorize(text) {
     if (!text) return "";
 
     return text
+        .replace(/Босс|Boss/gi, "<span style='color:#ffd700; font-weight:700; text-shadow:0 0 6px rgba(255,215,0,0.6)'>$&</span>")
         .replace(/Данж/gi, "<span style='color:#ff4d4d; font-weight:600'>Данж</span>")
         .replace(/Нефтевышка|Oilrig/gi, "<span style='color:#c77dff; font-weight:600'>Нефтевышка</span>")
         .replace(/Активность/gi, "<span style='color:#4da6ff; font-weight:600'>Активность</span>");
 }
+
+function hpLabel(hp) {
+    const value = Number(hp || 0);
+    if (!value) return "";
+    if (value >= 1000) {
+        const k = value / 1000;
+        return Number.isInteger(k) ? `${k}k` : `${k.toFixed(1)}k`;
+    }
+    return String(value);
+}
+
+function getHpByClassname(classname) {
+    const raw = (classname || "").trim();
+    if (!raw) return 0;
+
+    if (hpMap.has(raw)) return hpMap.get(raw);
+
+    const variants = [
+        raw.replace(/\s+/g, ""),
+        raw.replace(/Активность\s*/gi, ""),
+        raw.replace(/Данж\s*/gi, ""),
+        raw.replace(/Активность\s*/gi, "").replace(/\s+/g, ""),
+        raw.replace(/Данж\s*/gi, "").replace(/\s+/g, "")
+    ];
+
+    for (const key of variants) {
+        if (hpMap.has(key)) return hpMap.get(key);
+    }
+
+    return 0;
+}
 // мутанты
 function showZombies() {
+    currentView = "zombies";
 
     const locationField = "Location" + SERVER;
 
@@ -271,6 +461,9 @@ function showZombies() {
 
     const name = z.ZombieNameRU || z.ZombieName || "???";
     const img = "images/" + (z.ZombieName || "").trim() + ".png";
+    const hp = getHpByClassname(z.ZombieName);
+    const isBoss = /босс|boss/i.test(name);
+    const hpBadge = hp ? `<span class="hp-badge${isBoss ? " boss" : ""}">${hpLabel(hp)} HP</span>` : "";
 
         html += `
         <div class="mob">
@@ -281,12 +474,13 @@ function showZombies() {
 
             <div class="mob-content">
 
-                <div class="mob-title">${name}</div>
+                <div class="mob-title-row">
+                    <div class="mob-title">${colorize(name)}</div>
+                    ${hpBadge}
+                </div>
 
                 <div class="mob-loc">
-                    ${z.LocationDeerisle ? "Deerisle: " + colorize(z.LocationDeerisle) + "<br>" : ""}
-                    ${z.LocationCherno ? "Cherno: " + colorize(z.LocationCherno) + "<br>" : ""}
-                    ${z.LocationFrostline ? "Frostline: " + colorize(z.LocationFrostline) : ""}
+                    ${SERVER}: ${colorize(z[locationField])}
                 </div>
 
             </div>
@@ -299,6 +493,7 @@ function showZombies() {
 }
 // лут
 function showLoot() {
+    currentView = "loot";
 
     const list = loot.filter(l => l.ID == current);
 
@@ -313,10 +508,7 @@ function showLoot() {
         const name = l.ItemNameRU || l.ItemName || "???";
         let chance = l.DropChance || "";
 
-        // 🔥 Boss подсветка
-        if (chance.includes("Boss")) {
-            chance = `<span style="color:#ff4d4d">${chance}</span>`;
-        }
+        chance = chance.replace(/Босс|Boss/gi, "<span style='color:#ffd700; font-weight:700; text-shadow:0 0 6px rgba(255,215,0,0.6)'>$&</span>");
 
         html += `
         <div class="mob">

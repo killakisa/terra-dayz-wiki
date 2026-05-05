@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Обмен оружия - Легенда Терра</title>
+
+<style>
+body {
+    margin: 0;
+    background: radial-gradient(circle at top, #0f1a14, #070a08);
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 1050px;
+    margin: 40px auto;
+    padding: 0 16px;
+}
+
+.back {
+    color: #9cff57;
+    cursor: pointer;
+    margin-bottom: 16px;
+}
+
+.back:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    text-align: center;
+    color: #9cff57;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #a7b4ab;
+    margin-bottom: 24px;
+}
+
+.section {
+    margin: 18px 0;
+    padding: 18px;
+    background: linear-gradient(145deg, #111814, #0b100d);
+    border: 1px solid #253228;
+    border-radius: 12px;
+}
+
+.section h2 {
+    margin-top: 0;
+    color: #9cff57;
+    font-size: 22px;
+}
+
+.section h3 {
+    margin-bottom: 8px;
+    color: #d6ffd8;
+}
+
+.note {
+    color: #9aa8a0;
+    font-size: 14px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+}
+
+.item-card {
+    background: #0f1512;
+    border: 1px solid #1e2a22;
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.item-card strong {
+    color: #c8ff98;
+}
+
+.item-card ul {
+    margin: 8px 0 0 18px;
+    padding: 0;
+    color: #d3ddd6;
+}
+
+.plans {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 10px;
+}
+
+.plan-card {
+    background: linear-gradient(145deg, #111, #1a1f1c);
+    border: 1px solid #2b3a2f;
+    border-radius: 10px;
+    padding: 14px;
+    transition: 0.2s;
+}
+
+.plan-card:hover {
+    border-color: #9cff57;
+    box-shadow: 0 0 10px rgba(156,255,87,0.3);
+}
+
+.plan-title {
+    color: #9cff57;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+/* оформление строк как у сканеров */
+.mob {
+    display: flex;
+    align-items: center;
+    background: #151a17;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.mob:last-child {
+    margin-bottom: 0;
+}
+
+.mob-content {
+    flex: 1;
+}
+
+.mob-loc {
+    font-size: 13px;
+    color: gray;
+    line-height: 1.45;
+}
+
+.footer {
+    margin-top: 22px;
+    color: #7d8a82;
+    font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+    <div class="back" onclick="goBack()">← Назад</div>
+
+    <h1>Обмен оружия - Легенда Терра</h1>
+    <div class="subtitle">Чертежи загружаются из CSV, как на странице сканеров</div>
+
+    <div class="section">
+        <h2>Какие чертежи где выпадают</h2>
+        <div id="plans" class="plans"></div>
+    </div>
+
+    <div class="footer">Terra DayZ Wiki</div>
+</div>
+
+<script>
+function goBack() {
+    window.location.href = "index.html";
+}
+
+let planDrops = [];
+
+function parseCSV(text) {
+    const rows = [];
+    let row = [];
+    let current = "";
+    let insideQuotes = false;
+
+    for (let char of text) {
+        if (char === '"') {
+            insideQuotes = !insideQuotes;
+        } else if (char === "," && !insideQuotes) {
+            row.push(current.trim());
+            current = "";
+        } else if (char === "\n" && !insideQuotes) {
+            row.push(current.trim());
+            rows.push(row);
+            row = [];
+            current = "";
+        } else if (char !== "\r") {
+            current += char;
+        }
+    }
+
+    if (current) {
+        row.push(current.trim());
+        rows.push(row);
+    }
+
+    const headers = rows[0] || [];
+
+    return rows.slice(1).map(r => {
+        const obj = {};
+        headers.forEach((h, i) => {
+            obj[h.replace(/"/g, "").trim()] = (r[i] || "").replace(/"/g, "").trim();
+        });
+        return obj;
+    });
+}
+
+async function loadCSV(file) {
+    const text = await fetch(file).then(r => r.text());
+    return parseCSV(text);
+}
+
+function colorize(text) {
+    if (!text) return "";
+
+    return text
+        .replace(/Босс|Boss/gi, "<span style='color:#ffd700; font-weight:700; text-shadow:0 0 6px rgba(255,215,0,0.6)'>Босс</span>")
+        .replace(/Данж/gi, "<span style='color:#ff4d4d; font-weight:600'>Данж</span>")
+        .replace(/Нефтевышка|Oilrig/gi, "<span style='color:#c77dff; font-weight:600'>Нефтевышка</span>")
+        .replace(/Активность/gi, "<span style='color:#4da6ff; font-weight:600'>Активность</span>");
+}
+
+function planRank(plan) {
+    const map = {
+        "Plan F": 0,
+        "Plan E": 1,
+        "Plan D": 2,
+        "Plan C": 3,
+        "Plan B": 4,
+        "Plan A": 5
+    };
+    return map[plan] ?? 99;
+}
+
+function renderPlans() {
+    const container = document.getElementById("plans");
+    container.innerHTML = "";
+
+    const groups = {};
+    planDrops.forEach(item => {
+        const key = `${item.Weapon}|||${item.Plan}`;
+        if (!groups[key]) {
+            groups[key] = {
+                weapon: item.Weapon,
+                plan: item.Plan,
+                drops: []
+            };
+        }
+        groups[key].drops.push(item.Drop);
+    });
+
+    const cards = Object.values(groups).sort((a, b) => planRank(a.plan) - planRank(b.plan));
+
+    cards.forEach(card => {
+        const dropsHtml = card.drops
+            .map(drop => `
+                <div class="mob">
+                    <div class="mob-content">
+                        <div class="mob-loc">${colorize(drop)}</div>
+                    </div>
+                </div>
+            `)
+            .join("");
+
+        container.innerHTML += `
+            <div class="plan-card">
+                <div class="plan-title">${card.weapon} - ${card.plan}</div>
+                ${dropsHtml}
+            </div>
+        `;
+    });
+
+    if (!cards.length) {
+        container.innerHTML = "<div class='note'>Нет данных по чертежам.</div>";
+    }
+}
+
+async function init() {
+    planDrops = await loadCSV("data/WEAPON-TRADE-Plans.csv");
+    renderPlans();
+}
+
+window.onload = init;
+</script>
+</body>
+</html>

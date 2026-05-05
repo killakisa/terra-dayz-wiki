@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Консервация мяса</title>
+
+<style>
+body {
+    margin: 0;
+    background: #0b0f0d;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 980px;
+    margin: 40px auto;
+    padding: 0 16px;
+}
+
+.back {
+    cursor: pointer;
+    color: #9cff57;
+    margin-bottom: 18px;
+}
+
+.back:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    text-align: center;
+    color: #9cff57;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #9aa39d;
+    margin-bottom: 20px;
+}
+
+.section {
+    margin-top: 14px;
+    padding: 15px;
+    background: #111;
+    border-radius: 10px;
+    border: 1px solid #2b3a2f;
+}
+
+.section h2 {
+    margin-top: 0;
+    color: #9cff57;
+    font-size: 20px;
+}
+
+.section ul,
+.section ol {
+    color: #c7d0cb;
+    line-height: 1.5;
+    margin: 8px 0;
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.image-card {
+    background: #151a17;
+    border: 1px solid #2b3a2f;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.image-card img {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #2b3a2f;
+    background: #0f1512;
+}
+
+.image-card p {
+    margin: 8px 0 0 0;
+    color: #9aa39d;
+    font-size: 13px;
+}
+
+.note {
+    color: #ffd26f;
+    font-weight: 700;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+    <div class="back" onclick="goBack()">← Назад</div>
+
+    <h1>Консервация мяса</h1>
+    <div class="subtitle">Полевая кухня, оборудование, стерильность и процесс приготовления</div>
+
+    <div class="section">
+        <h2>🔥 Полевая Кухня для консервирования</h2>
+        <p>
+            Чтобы приготовить консервы, нужна <strong>Полевая Кухня</strong>. Ее собирают из
+            <strong>Набора для Сборки Полевой Кухни</strong>, который можно найти в промышленных локациях.
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>🔧 Что должно быть установлено</h2>
+        <ul>
+            <li><strong>Мясорубка</strong> — в луте городов, деревень и ферм.</li>
+            <li><strong>Кастрюля</strong> — в луте или при рыбалке.</li>
+            <li><strong>Книга рецептов</strong> — в луте городов, деревень и ферм.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>🧤 Стерильность и процесс приготовления</h2>
+        <p>
+            Для старта консервирования нужно надеть <strong>синие хирургические перчатки</strong>.
+            После этого у Полевой Кухни открываются рецепты и ингредиенты.
+        </p>
+        <ol>
+            <li>Наденьте перчатки для стерильности.</li>
+            <li>Положите ингредиенты во внутренние ячейки Полевой Кухни.</li>
+            <li>Запустите процесс и получите готовые консервы.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2>🔩 Где взять пустые банки</h2>
+        <p>
+            Пустые банки создаются из листов металла: наведитесь ножовкой на лист и нажмите кнопку создания.
+        </p>
+        <p class="note">
+            При изготовлении всегда получается 2–3 пустые банки, независимо от количества используемого металла.
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>🖼 Иллюстрации</h2>
+        <div class="image-grid">
+            <div class="image-card">
+                <img src="file:///C:/Users/yanab/.cursor/projects/c-Users-yanab-Documents-terra-dayz-wiki-main/assets/c__Users_yanab_AppData_Roaming_Cursor_User_workspaceStorage_3f3155f950eadc36d1faa9928dad9713_images_image-c1249e0e-0404-445d-931c-23e72c96205c.png" alt="Интерфейс Полевой Кухни">
+                <p>Интерфейс Полевой Кухни и список рецептов.</p>
+            </div>
+
+            <div class="image-card">
+                <img src="file:///C:/Users/yanab/.cursor/projects/c-Users-yanab-Documents-terra-dayz-wiki-main/assets/c__Users_yanab_AppData_Roaming_Cursor_User_workspaceStorage_3f3155f950eadc36d1faa9928dad9713_images_image-804cfd7b-3a07-4aa7-aa31-e943a58d499c.png" alt="Синие хирургические перчатки">
+                <p>Синие хирургические перчатки для стерильности.</p>
+            </div>
+
+            <div class="image-card">
+                <img src="file:///C:/Users/yanab/.cursor/projects/c-Users-yanab-Documents-terra-dayz-wiki-main/assets/c__Users_yanab_AppData_Roaming_Cursor_User_workspaceStorage_3f3155f950eadc36d1faa9928dad9713_images_image-4096ccbf-aa74-480b-a840-2380481b8fd3.png" alt="Оборудование для консервирования">
+                <p>Мясорубка, книга рецептов и кастрюля.</p>
+            </div>
+
+            <div class="image-card">
+                <img src="file:///C:/Users/yanab/.cursor/projects/c-Users-yanab-Documents-terra-dayz-wiki-main/assets/c__Users_yanab_AppData_Roaming_Cursor_User_workspaceStorage_3f3155f950eadc36d1faa9928dad9713_images_image-c3a771d2-ba97-4632-a76f-b9611572b723.png" alt="Полевая кухня в сборе">
+                <p>Полевая Кухня в собранном виде.</p>
+            </div>
+
+            <div class="image-card">
+                <img src="file:///C:/Users/yanab/.cursor/projects/c-Users-yanab-Documents-terra-dayz-wiki-main/assets/c__Users_yanab_AppData_Roaming_Cursor_User_workspaceStorage_3f3155f950eadc36d1faa9928dad9713_images_image-70536fb1-11d3-4d44-a535-e266f3d9440d.png" alt="Ингредиенты для консервов">
+                <p>Пример ингредиентов для консервации.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function goBack() {
+    window.location.href = "index.html";
+}
+</script>
+</body>
+</html>

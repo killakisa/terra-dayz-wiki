@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Готовые дома</title>
+
+<style>
+body {
+    margin: 0;
+    background: #0b0f0d;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 1180px;
+    margin: 40px auto;
+    padding: 0 16px 30px;
+}
+
+.back {
+    color: #9cff57;
+    cursor: pointer;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+.back:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    margin: 0 0 8px;
+    color: #9cff57;
+    font-size: 40px;
+}
+
+.subtitle {
+    color: #9aa39d;
+    margin: 0 0 18px;
+}
+
+.info {
+    background: linear-gradient(145deg, #111714, #1a1f1c);
+    border: 1px solid #2b3a2f;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 18px;
+}
+
+.info h2 {
+    margin: 0 0 12px;
+    color: #9cff57;
+    font-size: 24px;
+}
+
+.info ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.info li {
+    margin: 8px 0;
+    color: #d8ded9;
+}
+
+.tip {
+    margin-top: 12px;
+    color: #b9c6be;
+}
+
+.houses-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.house-card {
+    background: linear-gradient(145deg, #0f1411, #151d18);
+    border: 1px solid #2b3a2f;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.house-card img {
+    width: 100%;
+    display: block;
+    height: auto;
+}
+
+.house-meta {
+    padding: 12px 14px 14px;
+}
+
+.house-title {
+    margin: 0 0 6px;
+    color: #9cff57;
+    font-size: 18px;
+}
+
+.house-desc {
+    margin: 0;
+    color: #9aa39d;
+    font-size: 14px;
+}
+
+@media (max-width: 860px) {
+    .houses-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="back" onclick="window.location.href='index.html'">← Назад</div>
+
+    <h1>Готовые дома</h1>
+    <p class="subtitle">Описание системы домиков для строительства базы.</p>
+
+    <section class="info">
+        <h2>ГОТОВЫЕ ДОМА</h2>
+        <ul>
+            <li>Ставится из кита без ресурсов.</li>
+            <li>На одно место можно поставить до 2 домов.</li>
+            <li>Встроены свет, кодлок, камин и вода.</li>
+            <li>Срок жизни продлевается столбом аренды.</li>
+        </ul>
+        <p class="tip">💡 Возможна разборка обратно в кит топориком тем, кто устанавливал дом, и хранение в схроне.</p>
+    </section>
+
+    <section class="houses-grid">
+        <article class="house-card">
+            <img src="images/house1.png" alt="Деревянный сруб на 1 комнату">
+            <div class="house-meta">
+                <h3 class="house-title">Деревянный сруб на 1 комнату</h3>
+                <p class="house-desc">1 этаж • 1 комната • Размер: маленький • Получение: Trade</p>
+            </div>
+        </article>
+
+        <article class="house-card">
+            <img src="images/house2.png" alt="Деревянный сруб на 2 комнаты">
+            <div class="house-meta">
+                <h3 class="house-title">Деревянный сруб на 2 комнаты</h3>
+                <p class="house-desc">2 этажа • 2 комнаты • Размер: небольшой • Получение: Trade, WarGM, Shop</p>
+            </div>
+        </article>
+
+        <article class="house-card">
+            <img src="images/house3.png" alt="Деревянный сруб на 2 этажа">
+            <div class="house-meta">
+                <h3 class="house-title">Деревянный сруб на 2 этажа</h3>
+                <p class="house-desc">2 этажа • 2 комнаты • Размер: средний • Получение: Trade, Shop</p>
+            </div>
+        </article>
+
+        <article class="house-card">
+            <img src="images/house4.png" alt="Деревянный сруб на 4 комнаты">
+            <div class="house-meta">
+                <h3 class="house-title">Деревянный сруб на 4 комнаты</h3>
+                <p class="house-desc">1 этаж • 4 комнаты • Размер: средний • Получение: Trade, Shop</p>
+            </div>
+        </article>
+
+        <article class="house-card">
+            <img src="images/house5.png" alt="Широкий сруб">
+            <div class="house-meta">
+                <h3 class="house-title">Широкий сруб</h3>
+                <p class="house-desc">1 этаж • 4 комнаты • Размер: большой • Получение: Trade, Shop</p>
+            </div>
+        </article>
+
+        <article class="house-card">
+            <img src="images/house6.png" alt="Двухэтажный сруб">
+            <div class="house-meta">
+                <h3 class="house-title">Двухэтажный сруб</h3>
+                <p class="house-desc">2 этажа • 8 комнат • Размер: большой • Получение: Shop</p>
+            </div>
+        </article>
+    </section>
+</div>
+</body>
+</html>

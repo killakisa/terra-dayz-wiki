@@ -2,208 +2,571 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Оружие</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Оружие и урон</title>
 
 <style>
-body {
+:root{
+    --bg:#090b0c;
+    --card:#111416;
+    --card-2:#151a1d;
+    --line:#2a2f33;
+    --line-soft:#1d2226;
+    --text:#f2f2f2;
+    --muted:#9aa0a6;
+    --accent:#f2b531;
+}
+
+*{ box-sizing:border-box; }
+
+body{
     margin:0;
+    color:var(--text);
+    font-family:Arial, sans-serif;
     background:#0b0f0d;
-    color:#fff;
-    font-family:Arial;
 }
 
 .container{
-    max-width:1000px;
-    margin:40px auto;
+    max-width:1320px;
+    margin:0 auto;
+    padding:24px 18px 46px;
 }
+
+.back{
+    color:#8fe76f;
+    cursor:pointer;
+    display:inline-block;
+    margin-bottom:12px;
+    font-size:14px;
+}
+.back:hover{ text-decoration:underline; }
 
 h1{
-    color:#9cff57;
+    margin:0 0 18px;
     text-align:center;
+    color:#9cff57;
+    letter-spacing:1px;
+    font-size:56px;
+    line-height:1;
+    text-transform:uppercase;
 }
 
-/* фильтры */
+.type-tabs{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding-bottom:6px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:14px;
+}
+
+.type-tab{
+    border:1px solid transparent;
+    background:transparent;
+    color:#c8c8c8;
+    padding:9px 11px;
+    cursor:pointer;
+    border-radius:8px 8px 0 0;
+    white-space:nowrap;
+    font-size:12px;
+    text-transform:uppercase;
+}
+
+.type-tab:hover{ color:#fff; }
+.type-tab.active{
+    color:#fff;
+    border-color:var(--line);
+    border-bottom-color:#fff;
+    background:rgba(255,255,255,0.02);
+}
+
+.type-description{
+    color:#d8d8d8;
+    font-size:14px;
+    margin-bottom:16px;
+}
+
+.legend{
+    background:linear-gradient(145deg, var(--card), var(--card-2));
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:12px;
+    margin-bottom:14px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:8px;
+}
+
+.legend-item{
+    border:1px solid var(--line-soft);
+    border-radius:10px;
+    padding:8px 10px;
+    font-size:13px;
+    color:var(--muted);
+    background:#0f1316;
+}
+
+.legend-title{
+    font-weight:700;
+    margin-bottom:3px;
+}
+
 .filters{
     display:flex;
-    gap:10px;
     flex-wrap:wrap;
-    margin-bottom:20px;
+    gap:10px;
+    margin-bottom:14px;
 }
 
 input, select{
-    padding:8px;
-    background:#111;
-    border:1px solid #2b3a2f;
-    border-radius:6px;
+    background:#101417;
+    border:1px solid var(--line);
+    border-radius:8px;
     color:#fff;
+    padding:10px 11px;
+    min-height:38px;
 }
 
-/* карточки */
+input:focus, select:focus{
+    outline:none;
+    border-color:#f2b531;
+    box-shadow:0 0 0 2px rgba(242,181,49,0.2);
+}
+
+#search{ min-width:220px; flex:1 1 320px; }
+
+.cards-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(270px, 1fr));
+    gap:12px;
+}
+
+.columns-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+    gap:12px;
+}
+
+.column{
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:linear-gradient(145deg, var(--card), var(--card-2));
+    overflow:hidden;
+}
+
+.column-header{
+    padding:10px 12px;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+    border-bottom:1px solid var(--line-soft);
+}
+
+.column-list{
+    padding:8px;
+    display:grid;
+    gap:8px;
+}
+
 .card{
-    display:flex;
-    gap:15px;
-    padding:15px;
-    border:1px solid #1f2a22;
+    background:#101417;
+    border:1px solid var(--line-soft);
     border-radius:10px;
-    margin-bottom:10px;
-    background:#0f1512;
+    padding:12px;
     transition:0.2s;
 }
 
 .card:hover{
-    background:#16201b;
-    transform:scale(1.01);
+    transform:translateY(-2px);
+    border-color:#495157;
+}
+
+.top-row{
+    display:flex;
+    gap:8px;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:8px;
 }
 
 .weapon-name{
+    margin:0;
     font-size:16px;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    border:1px solid;
+    border-radius:999px;
+    padding:2px 8px;
+    font-size:11px;
+    font-weight:700;
+    white-space:nowrap;
+}
+
+.weapon-type{
+    display:inline-flex;
+    margin-top:7px;
+    border:1px solid #344049;
+    border-radius:999px;
+    padding:2px 8px;
+    font-size:11px;
+    color:#afbac2;
     font-weight:700;
 }
 
 .stat{
     font-size:13px;
-    color:#aaa;
+    color:var(--muted);
+    margin:2px 0;
 }
 
-/* урон */
 .damage{
+    color:#ffffff;
     font-weight:700;
 }
 
-.back{
-    color:#9cff57;
-    cursor:pointer;
-    margin-bottom:20px;
-    font-size:14px;
-    text-align:left;
+.empty{
+    border:1px dashed var(--line);
+    border-radius:10px;
+    padding:14px;
+    color:#798189;
+    font-size:13px;
 }
 
-.back:hover{
-    text-decoration:underline;
+@media (max-width: 760px){
+    h1{ font-size:40px; }
+    .container{ padding-top:20px; }
 }
 </style>
 </head>
 
 <body>
-
 <div class="container">
-<div class="back" onclick="goBack()">← Назад</div>
-    
-<h1>Оружие и урон</h1>
+    <div class="back" onclick="goBack()">← Назад</div>
+    <h1>Оружие и урон</h1>
 
-<div class="filters">
-    <input id="search" placeholder="Поиск..." oninput="render()">
+    <div id="typeTabs" class="type-tabs"></div>
+    <div id="typeDescription" class="type-description"></div>
 
-    <select id="tier" onchange="render()">
-        <option value="">Все tier</option>
-        <option>guardian</option>
-        <option>stalwart</option>
-        <option>color</option>
-        <option>legend</option>
-    </select>
+    <div id="tierLegend" class="legend"></div>
 
-    <input id="ammo" placeholder="Патрон..." oninput="render()">
+    <div class="filters">
+        <input id="search" placeholder="Поиск по названию/типу..." oninput="render()">
+        <select id="sortBy" onchange="render()">
+            <option value="damageDesc">Урон: максимум → минимум</option>
+            <option value="magazineDesc">Магазин: максимум → минимум</option>
+        </select>
+        <select id="viewMode" onchange="render()">
+            <option value="grid">Сетка по ширине</option>
+            <option value="tierColumns">Колонки по бейджам</option>
+            <option value="typeColumns">Колонки по типу</option>
+        </select>
+    </div>
 
-    <input type="number" id="dmg" placeholder="Мин. урон" oninput="render()">
-</div>
-
-<div id="list"></div>
-
+    <div id="list"></div>
 </div>
 
 <script>
-
 let weapons = [];
+let activeType = "ALL";
+
+const TYPE_ORDER = ["ПМ", "ПП", "ДРБ", "ШВ", "АВ", "МВ", "СВ", "ПУЛ"];
+const TYPE_LABELS = {
+    "ALL": "Все",
+    "ПМ": "Пистолет",
+    "ПП": "Пистолет-пулемет",
+    "ДРБ": "Дробовик",
+    "ШВ": "Штурмовая винтовка",
+    "АВ": "Автоматическая винтовка",
+    "МВ": "Марксманская винтовка",
+    "СВ": "Снайперская винтовка",
+    "ПУЛ": "Пулемет"
+};
+const TYPE_DESC = {
+    "ALL": "Все типы вооружения в одной ленте с фильтрами и сортировкой.",
+    "ПМ": "ПМ — Пистолет. Короткоствольное оружие.",
+    "ПП": "ПП — Пистолет-пулемет. Автоматическое оружие под пистолетный патрон.",
+    "ДРБ": "ДРБ — Дробовик. Оружие под дробь или картечь.",
+    "ШВ": "ШВ — Штурмовая винтовка. Автоматическое оружие под промежуточный патрон.",
+    "АВ": "АВ — Автоматическая винтовка. Винтовка с автоматическим режимом огня.",
+    "МВ": "МВ — Марксманская винтовка. Полуавтомат для средней и дальней дистанции.",
+    "СВ": "СВ — Снайперская винтовка.",
+    "ПУЛ": "ПУЛ — Пулемет."
+};
+
+const TIER_ORDER = ["Common", "Uncommon", "Rare", "Epic", "Mythic", "Legendary", "Exclusive"];
+const TIER_INFO = {
+    "Common": { color: "#9aa0a6", text: "находится в игровом мире" },
+    "Uncommon": { color: "#62d26f", text: "1 уровень крафта" },
+    "Rare": { color: "#4da6ff", text: "2 уровень крафта" },
+    "Epic": { color: "#b182ff", text: "3 уровень крафта" },
+    "Mythic": { color: "#ff8f57", text: "донат версия" },
+    "Legendary": { color: "#ffd966", text: "легендарное оружие по квесту" },
+    "Exclusive": { color: "#ff4dc4", text: "эксклюзивная категория" }
+};
+
+function tierLabel(tier){
+    if(tier === "Common") return "Лут";
+    if(tier === "Uncommon") return "Vanguard";
+    if(tier === "Rare") return "Guardian";
+    if(tier === "Epic") return "Stalwart";
+    if(tier === "Mythic") return "Color";
+    return tier;
+}
 
 async function loadCSV(file){
-    const text = await fetch(file).then(r=>r.text());
+    const text = await fetch(file).then(r => r.text());
     return parseCSV(text);
 }
 
 function parseCSV(text){
-    const rows = text.split("\n").map(r=>r.split(","));
-    const headers = rows[0];
+    const rows = [];
+    let row = [];
+    let current = "";
+    let insideQuotes = false;
 
-    return rows.slice(1).map(r=>{
-        let obj={};
-        headers.forEach((h,i)=>obj[h]=r[i]);
+    for(const char of text){
+        if(char === '"'){
+            insideQuotes = !insideQuotes;
+        }else if(char === "," && !insideQuotes){
+            row.push(current.trim());
+            current = "";
+        }else if(char === "\n" && !insideQuotes){
+            row.push(current.trim());
+            rows.push(row);
+            row = [];
+            current = "";
+        }else if(char !== "\r"){
+            current += char;
+        }
+    }
+
+    if(current){
+        row.push(current.trim());
+        rows.push(row);
+    }
+
+    const headers = rows[0] || [];
+    return rows.slice(1).map(r => {
+        const obj = {};
+        headers.forEach((h, i) => {
+            obj[h.trim()] = (r[i] || "").trim();
+        });
         return obj;
     });
 }
 
-function getTierColor(name){
-    if(!name) return "#fff";
-    name = name.toLowerCase();
-
-    if(name.includes("guardian")) return "#4da6ff";
-    if(name.includes("stalwart")) return "#c77dff";
-    if(name.includes("color")) return "#ff8c42";
-    if(name.includes("legend")) return "#ffd700";
-
-    return "#aaa";
+function normalizeTier(tier){
+    const t = (tier || "").trim();
+    const hit = TIER_ORDER.find(x => x.toLowerCase() === t.toLowerCase());
+    return hit || "Common";
 }
 
-function cleanName(name){
-    return name
-        .replace(/guardian/gi,"")
-        .replace(/stalwart/gi,"")
-        .replace(/color/gi,"")
-        .replace(/legend/gi,"")
-        .trim();
+function tierColor(tier){
+    return (TIER_INFO[tier] || TIER_INFO.Common).color;
 }
 
-function render(){
+function normalizeWeaponType(raw){
+    const value = (raw || "").toUpperCase().trim().replace(/\s+/g, " ");
+    if(!value) return "";
+    if(["ПМ", "ПИСТОЛЕТ", "PISTOL", "HANDGUN"].includes(value)) return "ПМ";
+    if(["ПП", "SMG", "ПИСТОЛЕТ-ПУЛЕМЕТ", "ПИСТОЛЕТ-ПУЛЕМЁТ"].includes(value)) return "ПП";
+    if(["ДРБ", "ДРОБЬ", "ДРОБОВИК", "SHOTGUN"].includes(value)) return "ДРБ";
+    if(["ШВ", "AR", "ASSAULT RIFLE", "АВТОМАТ", "ASSAULT"].includes(value)) return "ШВ";
+    if(["АВ", "BATTLE RIFLE", "AUTO RIFLE", "АВТОМАТИЧЕСКАЯ ВИНТОВКА"].includes(value)) return "АВ";
+    if(["МВ", "DMR", "MARKSMAN", "MARKSMAN RIFLE"].includes(value)) return "МВ";
+    if(["СВ", "SNIPER", "SNIPER RIFLE"].includes(value)) return "СВ";
+    if(["ПУЛ", "LMG", "MG", "ПУЛЕМЕТ", "ПУЛЕМЁТ"].includes(value)) return "ПУЛ";
+    return value;
+}
 
-    const list = document.getElementById("list");
+function inferWeaponType(name, ammo){
+    const n = (name || "").toLowerCase();
+    const a = (ammo || "").toLowerCase();
 
-    const search = document.getElementById("search").value.toLowerCase();
-    const tier = document.getElementById("tier").value.toLowerCase();
-    const ammo = document.getElementById("ammo").value.toLowerCase();
-    const dmg = Number(document.getElementById("dmg").value || 0);
+    if(/shotgun|ks23|vr80|дроб/.test(n) || /12ga|23x75|buck|slug/.test(a)) return "ДРБ";
+    if(/glock|pistol|revolver|deagle|пистолет/.test(n) || /9x19|45acp|357|762x25/.test(a)) return "ПМ";
+    if(/mp5|vector|ppsh|scorpion|sub2000|smg/.test(n)) return "ПП";
+    if(/m249|m60|pkm|pkp|rpk|evolys|lmg|mg/.test(n)) return "ПУЛ";
+    if(/m110|hk417|rsass|sks|dmr|marksman/.test(n)) return "МВ";
+    if(/svu|sv98|awm|m200|as50|lynx|barret|ksvk|alligator|sniper|r700|k98|srs|dvl|vssk|m300|50|20mm|408|338|127x108|145x114/.test(n + " " + a)) return "СВ";
+    return "ШВ";
+}
 
-    list.innerHTML = "";
+function getWeaponType(w){
+    const rawType = w.Type || w.type || w.WeaponType || w.weaponType || w.Category || "";
+    const normalized = normalizeWeaponType(rawType);
+    if(normalized) return normalized;
+    return inferWeaponType(w.Weapon || "", w.Ammo || "");
+}
 
-    weapons.forEach(w=>{
+function toDamageNumber(value){
+    const v = (value || "").replace(/\s/g, "");
+    if(v.includes("=")) return Number(v.split("=").pop() || 0);
+    return Number(v || 0);
+}
 
-        const name = w.Weapon || "";
-        const a = w.Ammo || "";
-        const d = Number(w.Damage || 0);
+function toMagazineNumber(value){
+    return Number((value || "").toString().replace(/[^\d.-]/g, "") || 0);
+}
 
-        if(search && !name.toLowerCase().includes(search)) return;
-        if(tier && !name.toLowerCase().includes(tier)) return;
-        if(ammo && !a.toLowerCase().includes(ammo)) return;
-        if(d < dmg) return;
+function knownTypes(){
+    const fromData = [...new Set(weapons.map(getWeaponType))];
+    const ordered = TYPE_ORDER.filter(t => fromData.includes(t));
+    const extra = fromData.filter(t => !TYPE_ORDER.includes(t)).sort((a,b)=>a.localeCompare(b,"ru"));
+    return [...ordered, ...extra];
+}
 
-        list.innerHTML += `
-        <div class="card">
-
-            <div>
-                <div class="weapon-name"
-                    style="color:${getTierColor(name)};
-                    text-shadow:0 0 6px ${getTierColor(name)}">
-                    ${cleanName(name)}
-                </div>
-
-                <div class="stat">Патрон: ${a.replace("Ammo_","")}</div>
-                <div class="stat damage">Урон: ${d}</div>
-                <div class="stat">Магазин: ${w.Magazine}</div>
+function populateLegend(){
+    const wrap = document.getElementById("tierLegend");
+    wrap.innerHTML = "";
+    TIER_ORDER.forEach(t => {
+        const info = TIER_INFO[t];
+        wrap.innerHTML += `
+            <div class="legend-item">
+                <div class="legend-title" style="color:${info.color}">${tierLabel(t)}</div>
+                <div>${info.text}</div>
             </div>
-
-        </div>
         `;
     });
 }
+
+function renderTypeTabs(){
+    const tabs = document.getElementById("typeTabs");
+    const types = ["ALL", ...knownTypes()];
+    tabs.innerHTML = "";
+
+    types.forEach(type => {
+        const btn = document.createElement("button");
+        btn.className = "type-tab" + (activeType === type ? " active" : "");
+        btn.textContent = TYPE_LABELS[type] || type;
+        btn.onclick = () => {
+            activeType = type;
+            renderTypeTabs();
+            render();
+        };
+        tabs.appendChild(btn);
+    });
+}
+
+function renderTypeDescription(){
+    const block = document.getElementById("typeDescription");
+    block.textContent = TYPE_DESC[activeType] || "Оружие выбранного типа.";
+}
+
+function weaponCard(w){
+    const name = w.Weapon || "";
+    const ammo = w.Ammo || "—";
+    const damageRaw = w.Damage || "0";
+    const tier = normalizeTier(w.Tier);
+    const type = getWeaponType(w);
+    const typeLabelText = TYPE_LABELS[type] ? `${type} • ${TYPE_LABELS[type]}` : type;
+    const color = tierColor(tier);
+    const cleanAmmo = ammo.replace(/^Ammo_/i, "");
+
+    return `
+        <div class="card">
+            <div class="top-row">
+                <h3 class="weapon-name">${name}</h3>
+                <span class="badge" style="color:${color}; border-color:${color}66">${tierLabel(tier)}</span>
+            </div>
+            <div class="stat">Патрон: ${cleanAmmo}</div>
+            <div class="stat damage">Урон: ${damageRaw}</div>
+            <div class="stat">Магазин: ${w.Magazine || "0"}</div>
+            <div class="weapon-type">${typeLabelText}</div>
+        </div>
+    `;
+}
+
+function renderColumns(items, groupBy, colorBy){
+    const list = document.getElementById("list");
+    const groups = groupBy === "tier" ? TIER_ORDER : knownTypes();
+
+    let html = '<div class="columns-grid">';
+    groups.forEach(group => {
+        const filtered = items.filter(w => {
+            if(groupBy === "tier") return normalizeTier(w.Tier) === group;
+            return getWeaponType(w) === group;
+        });
+
+        let cards = "";
+        filtered.forEach(w => { cards += weaponCard(w); });
+        if(!cards) cards = '<div class="empty">Нет оружия по текущим фильтрам</div>';
+
+        const color = colorBy(group);
+        const groupTitle = groupBy === "tier" ? tierLabel(group) : (TYPE_LABELS[group] ? `${group} • ${TYPE_LABELS[group]}` : group);
+        html += `
+            <div class="column">
+                <div class="column-header" style="color:${color}">${groupTitle}</div>
+                <div class="column-list">${cards}</div>
+            </div>
+        `;
+    });
+    html += "</div>";
+    list.innerHTML = html;
+}
+
+function render(){
+    const search = document.getElementById("search").value.toLowerCase();
+    const sortBy = document.getElementById("sortBy").value;
+    const viewMode = document.getElementById("viewMode").value;
+    const list = document.getElementById("list");
+
+    renderTypeDescription();
+
+    const filtered = weapons.filter(w => {
+        const name = (w.Weapon || "").toLowerCase();
+        const type = getWeaponType(w);
+        const typeLabel = (TYPE_LABELS[type] || "").toLowerCase();
+
+        if(search && !name.includes(search) && !type.toLowerCase().includes(search) && !typeLabel.includes(search)) return false;
+        if(activeType !== "ALL" && type !== activeType) return false;
+        return true;
+    });
+
+    filtered.sort((a, b) => {
+        if(sortBy === "magazineDesc"){
+            return toMagazineNumber(b.Magazine) - toMagazineNumber(a.Magazine);
+        }
+        return toDamageNumber(b.Damage) - toDamageNumber(a.Damage);
+    });
+
+    if(viewMode === "tierColumns"){
+        renderColumns(filtered, "tier", tierColor);
+        return;
+    }
+
+    if(viewMode === "typeColumns"){
+        renderColumns(filtered, "type", () => "#9fc4ff");
+        return;
+    }
+
+    if(!filtered.length){
+        list.innerHTML = '<div class="empty">Ничего не найдено по текущим фильтрам</div>';
+        return;
+    }
+
+    let html = '<div class="cards-grid">';
+    filtered.forEach(w => { html += weaponCard(w); });
+    html += "</div>";
+    list.innerHTML = html;
+}
+
 function goBack(){
     window.location.href = "index.html";
 }
+
 async function init(){
     weapons = await loadCSV("data/WEAPONS.csv");
+    populateLegend();
+    renderTypeTabs();
     render();
 }
 
 init();
-
 </script>
-
 </body>
 </html>

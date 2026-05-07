@@ -2,225 +2,853 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Terra Wiki</title>
 
 <style>
+:root {
+    --bg-main: #070a08;
+    --bg-soft: #0f1512;
+    --bg-card: #111714;
+    --bg-card-2: #1a1f1c;
+    --border: #2b3a2f;
+    --border-soft: #1a241d;
+    --accent: #9cff57;
+    --accent-glow: rgba(156, 255, 87, 0.35);
+    --text-main: #ffffff;
+    --text-muted: #9a9a9a;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
-    background: radial-gradient(circle at top, #0f1a14, #070a08);
-    color: #fff;
+    background: radial-gradient(circle at top, #122018 0%, #0b110d 35%, #070a08 100%);
+    color: var(--text-main);
     font-family: Arial, sans-serif;
+    line-height: 1.5;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgba(7, 10, 8, 0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.nav {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.logo {
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--accent);
+    text-transform: uppercase;
+}
+
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.nav-links a {
+    color: #ddd;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.nav-links a:hover {
+    color: var(--accent);
 }
 
 .container {
-    max-width: 1200px;
-    margin: 80px auto;
-    text-align: center;
-    padding: 0 16px;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-h1 {
-    font-size: 42px;
-    margin-bottom: 10px;
-    color: #9cff57;
+.hero {
+    padding: 72px 0 48px;
+}
+
+.hero-inner {
+    background: linear-gradient(145deg, var(--bg-card), var(--bg-card-2));
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 28px 24px 22px;
+}
+
+.hero-main {
+    max-width: 1060px;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--border);
+    background: rgba(15, 21, 18, 0.85);
+    color: var(--accent);
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    margin-bottom: 16px;
+}
+
+.hero-title {
+    margin: 0 0 12px;
+    font-size: 80px;
+    line-height: 0.95;
     letter-spacing: 2px;
+    color: var(--accent);
+    font-weight: 700;
 }
 
-.subtitle {
-    color: #777;
-    margin-bottom: 20px;
+.hero-text {
+    margin: 0;
+    max-width: 920px;
+    color: #dce3de;
+    font-size: 17px;
 }
 
-/* 🔥 ПОИСК */
-#search {
-    width: 350px;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #2b3a2f;
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.hero-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 10px 18px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: #101612;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.hero-btn:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+}
+
+.hero-btn.primary {
+    background: linear-gradient(135deg, #82e845, #9cff57);
+    color: #101510;
+    border-color: #9cff57;
+}
+
+section {
+    padding: 24px 0 72px;
+}
+
+.section-title {
+    margin: 0 0 8px;
+    font-size: 32px;
+    color: var(--accent);
+    letter-spacing: 1px;
+}
+
+.section-subtitle {
+    margin: 0 0 22px;
+    color: var(--text-muted);
+    max-width: 780px;
+}
+
+.wiki-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0 0 14px;
+}
+
+.wiki-search {
+    min-width: 280px;
+    flex: 1 1 360px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
     background: #0f1512;
     color: #fff;
     outline: none;
-    margin-bottom: 20px;
+    font-size: 15px;
 }
 
-#search:focus {
-    border-color:#9cff57;
-    box-shadow:0 0 10px rgba(156,255,87,0.3);
+.wiki-search:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 10px rgba(156, 255, 87, 0.3);
 }
 
-
-.search-box{
-    position: relative;
-    width: 350px;
-    margin: auto;
-}
-
-/* контейнер результатов */
-#results{
-    position: absolute;
-    top: 105%;
-    left: 0;
-    width: 100%;
-    background: linear-gradient(145deg, #0f1512, #0b0f0d);
-    border: 1px solid #2b3a2f;
+.filter-btn {
+    min-height: 40px;
+    border: 1px solid var(--border);
+    background: #101612;
+    color: #d7ddd9;
     border-radius: 10px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-    overflow: hidden;
-    z-index: 10;
-}
-
-/* элемент результата */
-.result{
-    padding: 12px 14px;
+    padding: 9px 12px;
     cursor: pointer;
     transition: 0.2s;
-    border-bottom: 1px solid #1a241d;
 }
 
-/* последний без линии */
-.result:last-child{
-    border-bottom: none;
+.filter-btn:hover {
+    border-color: #44684f;
 }
 
-/* hover */
-.result:hover{
-    background: linear-gradient(90deg, #1a2a22, #0f1512);
-    color: #9cff57;
+.filter-btn.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: 0 0 12px rgba(156, 255, 87, 0.25);
 }
 
-/* скрытие если пусто */
-#results:empty{
+.mechanics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.mechanic {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    text-decoration: none;
+    color: #fff;
+    background: linear-gradient(145deg, var(--bg-card), var(--bg-card-2));
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 14px 12px;
+    transition: 0.2s;
+}
+
+.mechanic:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 0 16px rgba(156, 255, 87, 0.22);
+}
+
+.mechanic-title {
+    margin: 0 0 7px;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.mechanic-desc {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.mechanic-type {
+    align-self: end;
+    color: var(--accent);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.mechanics-empty {
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    padding: 14px;
+    color: var(--text-muted);
+}
+
+.support-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.support-card {
+    background: linear-gradient(145deg, var(--bg-card), var(--bg-card-2));
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px;
+}
+
+.support-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    transition: 0.2s;
+}
+
+.support-link:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(156, 255, 87, 0.24);
+    transform: translateY(-2px);
+}
+
+.support-title {
+    margin: 0 0 8px;
+    font-size: 31px;
+    color: var(--accent);
+}
+
+.support-subtitle {
+    margin: 0 0 16px;
+    color: var(--text-muted);
+}
+
+.support-card-title {
+    margin: 0 0 8px;
+    font-size: 30px;
+}
+
+.support-card-text {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.faq-title {
+    margin: 0 0 14px;
+    font-size: 40px;
+    color: var(--accent);
+}
+
+.faq-list {
+    display: grid;
+    gap: 10px;
+}
+
+.faq-item {
+    background: linear-gradient(145deg, var(--bg-card), var(--bg-card-2));
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.faq-item summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 14px 16px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.faq-item summary::-webkit-details-marker {
     display: none;
 }
 
-/* карточки */
-.cards {
+.faq-item summary::before {
+    content: "▶ ";
+    color: #cfd6d1;
+}
+
+.faq-item[open] summary::before {
+    content: "▼ ";
+}
+
+.faq-answer {
+    border-top: 1px solid var(--border-soft);
+    padding: 0 16px 14px;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.servers-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px;
-    align-items: stretch;
+}
+
+.server-card {
+    background: linear-gradient(145deg, var(--bg-card), var(--bg-card-2));
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px;
+}
+
+.server-title {
+    margin: 0 0 8px;
+    font-size: 21px;
+    color: var(--accent);
+}
+
+.server-desc {
+    margin: 0 0 12px;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.server-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #0f1512;
+    padding: 8px 10px;
+    font-size: 14px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.server-label {
+    color: #9aa39d;
+}
+
+.base-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.base-card {
+    background: linear-gradient(145deg, var(--bg-card), var(--bg-card-2));
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px;
+    overflow: hidden;
+}
+
+.base-card.clickable {
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.base-card.clickable:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 16px rgba(156, 255, 87, 0.22);
+    transform: translateY(-2px);
+}
+
+.base-link {
+    margin-top: 10px;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.base-image {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid var(--border-soft);
+    display: block;
+    margin-bottom: 12px;
+}
+
+.base-content {
+    padding: 2px 6px 6px;
+}
+
+.base-card h3 {
+    margin: 0 0 10px;
+    font-size: 20px;
+}
+
+.base-card p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.base-card ul {
+    margin: 12px 0 0;
+    padding-left: 18px;
+    color: var(--text-muted);
+}
+
+.base-card li {
+    margin: 6px 0;
 }
 
 .card {
-    background: linear-gradient(145deg, #111, #1a1f1c);
-    border: 1px solid #2b3a2f;
+    background: linear-gradient(145deg, var(--bg-card), var(--bg-card-2));
+    border: 1px solid var(--border);
+    border-radius: 16px;
     padding: 20px;
-    border-radius: 14px;
-    cursor: pointer;
     transition: 0.25s;
     text-align: left;
+    cursor: pointer;
 }
 
 .card:hover {
-    transform: translateY(-3px);
-    border-color: #9cff57;
-    box-shadow: 0 0 20px rgba(156,255,87,0.35);
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 0 24px var(--accent-glow);
 }
 
 .card-title {
+    margin: 0 0 8px;
     font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 6px;
+    font-weight: 700;
 }
 
 .card-desc {
-    font-size: 13px;
-    color: #888;
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-muted);
 }
 
 .footer {
-    margin-top: 60px;
-    font-size: 12px;
-    color: #444;
+    border-top: 1px solid var(--border-soft);
+    padding: 18px 20px 26px;
+    text-align: center;
+    font-size: 13px;
+    color: #6d726f;
+}
+
+@media (max-width: 980px) {
+    .hero-title {
+        font-size: 58px;
+    }
+
+    .hero-text {
+        font-size: 16px;
+    }
+
+    .mechanics-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .support-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .servers-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .base-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 640px) {
+    .hero {
+        padding-top: 52px;
+    }
+
+    .hero-title {
+        font-size: 42px;
+    }
+
+    .hero-text {
+        font-size: 15px;
+    }
+
+    .mechanics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .support-grid {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
 </head>
-
 <body>
 
-<div class="container">
+<header class="header">
+    <nav class="nav">
+        <div class="logo">TERRA DAYZ</div>
+        <div class="nav-links">
+            <a href="#base">Основа</a>
+            <a href="#wiki">Механики</a>
+            <a href="#servers">Серверы</a>
+            <a href="#support">Поддержка</a>
+            <a href="#faq">FAQ</a>
+        </div>
+    </nav>
+</header>
 
-<h1>TERRA WIKI</h1>
-<div class="subtitle">Информация по серверу Terra DayZ</div>
+<main>
+    <section class="hero">
+        <div class="container hero-inner">
+            <div class="hero-main">
+                <span class="badge">Light PvE • Данжи • Ивенты • Долгое развитие</span>
+                <h1 class="hero-title">TERRA DAYZ</h1>
+                <p class="hero-text">Атмосферный PvE-проект для спокойной игры после работы, фарма, гринда и постепенного развития на долгой дистанции. Без космической тематики, кислотных модов и контента, который ломает ощущение настоящего DayZ.</p>
+                <div class="hero-actions">
+                    <a class="hero-btn primary" href="#wiki">Смотреть механики</a>
+                    <a class="hero-btn" href="#servers">Наши серверы</a>
+                    <a class="hero-btn" href="#support">Поддержка игроков</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- 🔥 ПОИСК -->
+    <section id="base">
+        <div class="container">
+            <h2 class="section-title">Основа игрового процесса</h2>
+            <p class="section-subtitle">Основные системы, с которыми игрок сталкивается в процессе развития.</p>
+            <div class="base-grid">
+                <article class="base-card clickable" onclick="go('houses.html')">
+                    <img class="base-image" src="images/base-build.png" alt="Строительство и базы">
+                    <div class="base-content">
+                        <h3>🏠 Строительство и базы</h3>
+                        <p>Кастомная система баз с автоматической арендой участков. Игрок выбирает свободное место, арендует его и развивает базу без ожидания одобрения администрации.</p>
+                        <ul>
+                            <li>талоны аренды у строительного трейдера;</li>
+                            <li>столб аренды вместо обычного флага;</li>
+                            <li>готовые домики с кодлоками, водой и подсветкой;</li>
+                            <li>декор и мебель у строителя или в игровом мире.</li>
+                        </ul>
+                        <div class="base-link">Подробнее про готовые дома →</div>
+                    </div>
+                </article>
 
-<div class="search-box">
-    <input id="search" placeholder="Поиск по вики...">
-    <div id="results"></div>
-</div>
+                <article class="base-card">
+                    <img class="base-image" src="images/base-craft.png" alt="Крафт">
+                    <div class="base-content">
+                        <h3>🛠 Крафт</h3>
+                        <p>Крафт реализован через верстак. Игрок собирает станцию, подготавливает инструменты и получает доступ к рецептам с разными ингредиентами.</p>
+                        <ul>
+                            <li>важная часть ранней прогрессии;</li>
+                            <li>прокачка амуниции и оружия;</li>
+                            <li>улучшение рюкзаков и контейнеров;</li>
+                            <li>переход к следующему этапу развития.</li>
+                        </ul>
+                    </div>
+                </article>
 
-<div class="cards" id="cards"></div>
+                <article class="base-card">
+                    <img class="base-image" src="images/base-vehicle.png" alt="Транспорт">
+                    <div class="base-content">
+                        <h3>🚗 Транспорт</h3>
+                        <p>На серверах доступны автомобили, лодки и вертолёты. Транспорт можно найти, купить у автотрейдера, получить за голосование wargm, за F-Coins которые зарабатываются в боевом пропуске или через донат.</p>
+                        <ul>
+                            <li>виртуальные гаражи на заправках и трейд-зонах;</li>
+                            <li>хранение транспорта и разрешённых предметов внутри;</li>
+                            <li>автоэвакуация в гараж после 4 часов простоя на карте;</li>
+                            <li>ремонт, заправка и восстановление через паркомат.</li>
+                        </ul>
+                    </div>
+                </article>
 
-<div class="footer">
-Terra DayZ Wiki
-</div>
+                <article class="base-card">
+                    <img class="base-image" src="images/base-trade.png" alt="Экономика">
+                    <div class="base-content">
+                        <h3>💰 Экономика</h3>
+                        <p>Экономика комфортная для Light PvE, а end-content завязан на редкости, рандоме, выбивании предметов и обмене с другими игроками.</p>
+                        <ul>
+                            <li>основной трейд и P2P-трейдер;</li>
+                            <li>охотник, Black Market и трейдер за юани;</li>
+                            <li>NPC-трейдеры группировок;</li>
+                            <li>личный и групповой банк.</li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
 
-</div>
+    <section id="wiki">
+        <div class="container">
+            <h2 class="section-title">Механики и Wiki-гайды</h2>
+            <p class="section-subtitle">Этот блок можно использовать как мини-wiki. Каждая кнопка ведёт на отдельную страницу гайда. Пока страницы можно оставить заглушками и постепенно заполнять.</p>
+
+            <div class="wiki-tools">
+                <input id="wikiSearch" class="wiki-search" placeholder="Поиск по механикам...">
+                <button class="filter-btn active" data-filter="all">Все</button>
+                <button class="filter-btn" data-filter="combat">Бой</button>
+                <button class="filter-btn" data-filter="farm">Фарм</button>
+                <button class="filter-btn" data-filter="progress">Прогрессия</button>
+                <button class="filter-btn" data-filter="calm">Спокойная игра</button>
+            </div>
+
+            <div class="mechanics-grid" id="mechanicsGrid"></div>
+        </div>
+    </section>
+
+    <section id="servers">
+        <div class="container">
+            <h2 class="section-title">Серверы Terra</h2>
+            <p class="section-subtitle">Краткое описание серверов и данные для подключения.</p>
+            <div class="servers-grid">
+                <article class="server-card">
+                    <h3 class="server-title">◽ Terra Deerisle</h3>
+                    <p class="server-desc">Первый сервер проекта с уникальной атмосферой загадочного острова, сюжетной линией и историей группировок STAG.</p>
+                    <div class="server-meta"><span class="server-label">IP:</span> 185.207.214.155</div>
+                    <div class="server-meta"><span class="server-label">Порт:</span> 2302</div>
+                </article>
+
+                <article class="server-card">
+                    <h3 class="server-title">◽ Terra Cherno</h3>
+                    <p class="server-desc">Классическое выживание на всем известной карте Чернарусь.</p>
+                    <div class="server-meta"><span class="server-label">IP:</span> 185.207.214.155</div>
+                    <div class="server-meta"><span class="server-label">Порт:</span> 2316</div>
+                </article>
+
+                <article class="server-card">
+                    <h3 class="server-title">◽ Terra Frostline</h3>
+                    <p class="server-desc">Суровый зимний мир с опасным климатом и впечатляющими заснеженными пейзажами.</p>
+                    <div class="server-meta"><span class="server-label">IP:</span> 185.207.214.252</div>
+                    <div class="server-meta"><span class="server-label">Порт:</span> 2309</div>
+                </article>
+
+                <article class="server-card">
+                    <h3 class="server-title">◽ Terra Summer</h3>
+                    <p class="server-desc">Полностью идентичный серверу Cherno игровой опыт с более свежей экономикой.</p>
+                    <div class="server-meta"><span class="server-label">IP:</span> 185.207.214.252</div>
+                    <div class="server-meta"><span class="server-label">Порт:</span> 2323</div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="support">
+        <div class="container">
+            <h2 class="support-title">Сайт, поддержка и новости</h2>
+            <p class="support-subtitle">Terra DayZ — это не только сервер, но и экосистема с сайтом, поддержкой, новостями и сезонной активностью.</p>
+
+            <div class="support-grid">
+                <a class="support-card support-link" href="https://terradayz.ru/" target="_blank" rel="noopener noreferrer">
+                    <h3 class="support-card-title">🌐 Сайт</h3>
+                    <p class="support-card-text">На сайте доступен боевой пропуск и техническая поддержка через личный чат.</p>
+                </a>
+
+                <a class="support-card support-link" href="https://discord.gg/g4ysWm34XN" target="_blank" rel="noopener noreferrer">
+                    <h3 class="support-card-title">💬 Discord</h3>
+                    <p class="support-card-text">Новости, тикеты, краткая wiki-информация, общение игроков и объявления проекта.</p>
+                </a>
+
+                <a class="support-card support-link" href="https://terradayz.ru/news/1" target="_blank" rel="noopener noreferrer">
+                    <h3 class="support-card-title">🛠 Техработы</h3>
+                    <p class="support-card-text">Каждое воскресенье в 22:00 проходят техработы: фиксы, улучшения или добавление нового.</p>
+                </a>
+
+                <a class="support-card support-link" href="https://chat.lenzaos.com/s/5e5cj9" target="_blank" rel="noopener noreferrer">
+                    <h3 class="support-card-title">🏆 Lenza</h3>
+                    <p class="support-card-text">Сообщество проекта, общение игроков и альтернатива Discord.</p>
+                </a>
+
+                <a class="support-card support-link" href="https://www.youtube.com/@TerraDayZ" target="_blank" rel="noopener noreferrer">
+                    <h3 class="support-card-title">📰 Shorts-новости</h3>
+                    <p class="support-card-text">Периодически выходят вертикальные новости и спойлеры к обновлениям.</p>
+                </a>
+
+                <a class="support-card support-link" href="https://terradayz.ru/rules" target="_blank" rel="noopener noreferrer">
+                    <h3 class="support-card-title">📘 Правила</h3>
+                    <p class="support-card-text">Актуальные правила проекта, поведения и взаимодействия на сервере.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq">
+        <div class="container">
+            <h2 class="faq-title">Частые вопросы</h2>
+            <div class="faq-list">
+                <details class="faq-item">
+                    <summary>Можно ли играть одному?</summary>
+                    <div class="faq-answer">Да, весь основной PvE-контент рассчитан на соло-игру. Для сложных активностей можно объединяться с другими игроками по желанию.</div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Есть ли смысл играть группой или кланом?</summary>
+                    <div class="faq-answer">Да, клановая игра упрощает фарм, развитие базы и прохождение самых сложных активностей, включая боссов и эндгейм-контент.</div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Нужно ли согласовывать базу с администрацией?</summary>
+                    <div class="faq-answer">Нет, база ставится через систему аренды участков в рамках игровых правил. Главное — соблюдать лимиты и требования к размещению.</div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Что делать новичку в начале?</summary>
+                    <div class="faq-answer">Начните с базового лута, изучите разделы вики, соберите стартовый набор для выживания и постепенно переходите к крафту и развитию базы.</div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Где получить помощь?</summary>
+                    <div class="faq-answer">Используйте Discord, или чат поддержки на сайте проекта — мы на связи с 10:00 до 00:00 по московскому времени.</div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">Terra DayZ Wiki</footer>
 
 <script>
-function go(page){
+function go(page) {
     window.location.href = page;
 }
 
-/* 🔥 ДАННЫЕ ДЛЯ ПОИСКА */
-const DATA = [
-  { title:"Сканер мутаций", url:"scanners.html", desc:"Мутанты, локации и награды", tags:"мутанты зомби сканер" },
-  { title:"Оружие и урон", url:"weapons.html", desc:"Характеристики оружия и урон", tags:"оружие урон ammo gun" },
-  { title:"Добыча руды", url:"mining.html", desc:"Где искать и как перерабатывать", tags:"руда mining ресурсы" },
-  { title:"Легендарное оружие", url:"weapon-trade.html", desc:"Где добывать чертежи", tags:"чертежи чертеж план планы plan a b c d e f обмен оружия легенда терра black trade boss босс данж активность нефтевышка oilrig cherno deerisle frostline zoo maya tungar prison urup skalisty" },
-  { title:"Гифтбоксы", url:"giftboxes.html", desc:"Ежедневная рулетка, шансы и содержимое", tags:"гифтбокс giftbox ежедневная рулетка daily стандартный еда боеприпасы одежда коллекции инструменты оружейный легендарный шанс дроп предметы" },
-  { title:"Консервация мяса", url:"meat-canning.html", desc:"Полевая кухня, рецепты и заготовка банок", tags:"консервация консервы мясо полевая кухня набор для сборки мясорубка кастрюля книга рецептов перчатки пустая банка лист металла ножовка" },
-  { title:"Система начисления репутации", url:"reputation.html", desc:"Начисления, штрафы и уровни репутации", tags:"репутация система начисления уровни 10k 20k 30k 40k 50k боты зомби солдат медведь игрок группировки" },
-  { title:"Медицина", url:"medicine.html", desc:"Аптечки, бинты и медпредметы", tags:"медицина аптечка красная желтая синяя бинт военный медицинский клей бф-6 хилки промедол кровь порезы" },
-  { title:"Детекторы и магнитные поля", url:"detectors.html", desc:"Как работают детекторы, зоны и советы", tags:"детекторы магнитные поля артефакты сканирование батареи крафт побочные эффекты искорка deer isle chernarus frostline" },
-  { title:"Свойства артефактов", url:"artifacts.html", desc:"Плюсы и минусы артефактов по группам", tags:"артефакты свойства детектор detector scanner stag кровь здоровье еда вода порезы шок плюс минус ангел снежинка огненный шар оазис" }
+const MECHANICS = [
+  { title: "Оружие и урон", url: "weapons.html", desc: "Характеристики оружия, урон и редкости.", tags: "оружие урон", category: "combat progress" },
+  { title: "Сканер мутаций", url: "scanners.html", desc: "Мутанты, локации сканирования и награды.", tags: "сканер мутанты", category: "farm" },
+  { title: "Артефакты", url: "artifacts.html", desc: "Поиск, хранение, свойства и продажа артефактов.", tags: "артефакты detector scanner", category: "farm progress" },
+  { title: "Легендарное оружие", url: "weapon-trade.html", desc: "Чертежи, обмены и этапы получения.", tags: "легендарное оружие чертеж", category: "combat progress" },
+  { title: "Добыча руды", url: "mining.html", desc: "Где добывать руду и как использовать ресурсы.", tags: "руда mining", category: "farm calm" },
+  { title: "Консервация мяса", url: "meat-canning.html", desc: "Полевая кухня, рецепты и заготовка банок.", tags: "консервация мясо", category: "calm" },
+  { title: "Репутация", url: "reputation.html", desc: "Начисление, штрафы и уровни репутации.", tags: "репутация", category: "progress calm" },
+  { title: "Медицина", url: "medicine.html", desc: "Аптечки, бинты, лечение порезов и шока.", tags: "медицина хилки", category: "calm progress" },
+  { title: "Детекторы", url: "detectors.html", desc: "Зоны сканирования, батареи и советы.", tags: "детекторы магнитные поля", category: "farm progress" },
+  { title: "Гифтбоксы", url: "giftboxes.html", desc: "Ежедневная рулетка, шансы и содержимое.", tags: "giftbox рулетка", category: "progress calm" }
 ];
 
-const SORTED_DATA = [...DATA].sort((a, b) =>
-    a.title.localeCompare(b.title, "ru")
-);
+let activeMechanicFilter = "all";
 
-function renderCards(){
-    const cards = document.getElementById("cards");
-    cards.innerHTML = "";
+function renderMechanics() {
+    const grid = document.getElementById("mechanicsGrid");
+    const q = document.getElementById("wikiSearch").value.toLowerCase().trim();
 
-    SORTED_DATA.forEach(item => {
-        cards.innerHTML += `
-            <div class="card" onclick="go('${item.url}')">
-                <div class="card-title">${item.title}</div>
-                <div class="card-desc">${item.desc || ""}</div>
-            </div>
+    const list = MECHANICS.filter(item => {
+        const inFilter = activeMechanicFilter === "all" || item.category.includes(activeMechanicFilter);
+        if (!inFilter) return false;
+        if (!q) return true;
+        return item.title.toLowerCase().includes(q) || item.desc.toLowerCase().includes(q) || item.tags.toLowerCase().includes(q);
+    });
+
+    if (!list.length) {
+        grid.innerHTML = '<div class="mechanics-empty">Ничего не найдено по текущим фильтрам.</div>';
+        return;
+    }
+
+    grid.innerHTML = "";
+    list.forEach(item => {
+        grid.innerHTML += `
+            <a class="mechanic" href="${item.url}">
+                <div>
+                    <h3 class="mechanic-title">${item.title}</h3>
+                    <p class="mechanic-desc">${item.desc}</p>
+                </div>
+                <div class="mechanic-type">Гайд →</div>
+            </a>
         `;
     });
 }
 
-/* 🔥 ПОИСК */
-document.getElementById("search").addEventListener("input", function(){
+document.getElementById("wikiSearch").addEventListener("input", renderMechanics);
 
-    let q = this.value.toLowerCase();
-    let results = document.getElementById("results");
-
-    results.innerHTML = "";
-
-    if(q.length < 2) return;
-
-    let filtered = SORTED_DATA.filter(item =>
-        item.title.toLowerCase().includes(q) ||
-        item.tags.toLowerCase().includes(q)
-    );
-
-    filtered.forEach(item=>{
-        let div = document.createElement("div");
-        div.className = "result";
-        div.innerText = item.title;
-        div.onclick = ()=> window.location.href = item.url;
-        results.appendChild(div);
+document.querySelectorAll(".filter-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+        activeMechanicFilter = btn.dataset.filter;
+        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderMechanics();
     });
-
 });
 
-renderCards();
+renderMechanics();
 </script>
 
 </body>

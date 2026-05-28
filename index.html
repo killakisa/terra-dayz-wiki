@@ -581,7 +581,7 @@ section {
     <section class="hero">
         <div class="container hero-inner">
             <div class="hero-main">
-                <span class="badge">Light PvE • Данжи • Ивенты • Долгое развитие</span>
+                <span class="badge">Light PvE • Данжи • Ивенты • Поэтапная прогрессия</span>
                 <h1 class="hero-title">TERRA DAYZ</h1>
                 <p class="hero-text">Атмосферный PvE-проект для спокойной игры после работы, фарма, гринда и постепенного развития на долгой дистанции. Без космической тематики, кислотных модов и контента, который ломает ощущение настоящего DayZ.</p>
                 <div class="hero-actions">
@@ -669,6 +669,7 @@ section {
                 <button class="filter-btn" data-filter="combat">Бой</button>
                 <button class="filter-btn" data-filter="farm">Фарм</button>
                 <button class="filter-btn" data-filter="progress">Прогрессия</button>
+                <button class="filter-btn" data-filter="quests">Квесты</button>
                 <button class="filter-btn" data-filter="calm">Спокойная игра</button>
             </div>
 
@@ -797,9 +798,12 @@ const MECHANICS = [
   { title: "Сканер мутаций", url: "scanners.html", desc: "Мутанты, локации сканирования и награды.", tags: "сканер мутанты", category: "farm" },
   { title: "Артефакты", url: "artifacts.html", desc: "Поиск, хранение, свойства и продажа артефактов.", tags: "артефакты detector scanner", category: "farm progress" },
   { title: "Легендарное оружие", url: "weapon-trade.html", desc: "Чертежи, обмены и этапы получения.", tags: "легендарное оружие чертеж", category: "combat progress" },
+  { title: "BodyBag (мешок)", url: "bodybag.html", desc: "Возврат лута после смерти, талоны и управление мешком.", tags: "bodybag мешок крест смерть телепорт талоны", category: "combat" },
   { title: "Добыча руды", url: "mining.html", desc: "Где добывать руду и как использовать ресурсы.", tags: "руда mining", category: "farm calm" },
   { title: "Консервация мяса", url: "meat-canning.html", desc: "Полевая кухня, рецепты и заготовка банок.", tags: "консервация мясо", category: "calm" },
-  { title: "Репутация", url: "reputation.html", desc: "Начисление, штрафы и уровни репутации.", tags: "репутация", category: "progress calm" },
+  { title: "Репутация", url: "reputation.html", desc: "Начисление, штрафы и уровни репутации.", tags: "репутация", category: "progress" },
+  { title: "Группировки S.T.A.G.", url: "stag-factions.html", desc: "Квест-NPC, торговцы, репутация и особые товары.", tags: "группировки stag квесты npc торговцы репутация", category: "quests progress" },
+  { title: "PVE-ранг", url: "pve-rank.html", desc: "Рейтинг игроков, очки, боссы и сезонные награды.", tags: "pve ранг рейтинг топ игроки награды боссы данжи", category: "progress" },
   { title: "Медицина", url: "medicine.html", desc: "Аптечки, бинты, лечение порезов и шока.", tags: "медицина хилки", category: "calm progress" },
   { title: "Детекторы", url: "detectors.html", desc: "Зоны сканирования, батареи и советы.", tags: "детекторы магнитные поля", category: "farm progress" },
   { title: "Гифтбоксы", url: "giftboxes.html", desc: "Ежедневная рулетка, шансы и содержимое.", tags: "giftbox рулетка", category: "progress calm" }

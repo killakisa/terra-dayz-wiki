@@ -1,5 +1,7 @@
 [
   { "title": "Сканеры", "url": "scanners.html", "tags": "мутанты сканер зомби" },
   { "title": "Оружие и урон", "url": "weapons.html", "tags": "оружие урон патрон" },
-  { "title": "Добыча руды", "url": "mining.html", "tags": "руда плавка ресурсы" }
+  { "title": "Добыча руды", "url": "mining.html", "tags": "руда плавка ресурсы" },
+  { "title": "Группировки S.T.A.G.", "url": "stag-factions.html", "tags": "группировки stag квесты npc торговцы репутация" },
+  { "title": "PVE-ранг", "url": "pve-rank.html", "tags": "pve ранг рейтинг топ игроки награды боссы данжи" }
 ]

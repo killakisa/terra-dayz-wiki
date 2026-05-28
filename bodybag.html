@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BodyBag - мешок (крест)</title>
+
+<style>
+:root {
+    --bg: #090d0b;
+    --panel: #101612;
+    --panel-soft: #151d18;
+    --border: #2b3a2f;
+    --accent: #9cff57;
+    --text: #f4f7fb;
+    --muted: #b9c2bc;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background:
+        radial-gradient(circle at top, rgba(156, 255, 87, 0.12), transparent 30%),
+        linear-gradient(135deg, #090d0b, #0f1713 58%, #090d0b);
+    color: var(--text);
+    font-family: Arial, sans-serif;
+}
+
+.page {
+    width: min(1080px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 32px 0 42px;
+}
+
+.back {
+    display: inline-flex;
+    color: var(--accent);
+    cursor: pointer;
+    margin-bottom: 18px;
+}
+
+.back:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    margin: 0;
+    color: var(--accent);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.subtitle {
+    margin: 10px 0 0;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.5;
+}
+
+.section {
+    margin-top: 18px;
+    padding: 18px;
+    background: linear-gradient(145deg, #111814, #0b100d);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 0 14px rgba(156, 255, 87, 0.08);
+}
+
+.section h2 {
+    margin: 0 0 12px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 20px;
+}
+
+.lead {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.52;
+}
+
+.bullets {
+    margin: 0;
+    padding-left: 18px;
+    color: var(--muted);
+    line-height: 1.52;
+}
+
+.bullets li + li {
+    margin-top: 8px;
+}
+
+.image-wrap {
+    margin: 0;
+}
+
+.image-wrap img {
+    display: block;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #36513f;
+}
+
+.image-caption {
+    margin: 10px 0 0;
+    color: #8f9b93;
+    font-size: 13px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.card {
+    background: var(--panel-soft);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+}
+
+.card h3 {
+    margin: 0 0 8px;
+    color: var(--accent);
+    font-size: 16px;
+}
+
+.card p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.48;
+}
+
+.note {
+    margin-top: 18px;
+    color: #dbe5de;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.footer {
+    margin-top: 14px;
+    color: #7d8a82;
+    text-align: center;
+    font-size: 14px;
+}
+
+@media (max-width: 820px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+<main class="page">
+    <div class="back" onclick="goBack()">← Назад</div>
+
+    <h1>BodyBag - мешок (крест)</h1>
+    <p class="subtitle">Информация по механике восстановления лута после смерти и работе с талонами.</p>
+
+    <section class="section">
+        <h2>Основное</h2>
+        <ul class="bullets">
+            <li>Bodybag остаётся на карте в течение 2 часов после вашей смерти.</li>
+            <li>По умолчанию он закрыт, и только вы можете открыть и забрать с него вещи.</li>
+        </ul>
+    </section>
+
+    <section class="section">
+        <h2>Инфографика</h2>
+        <figure class="image-wrap">
+            <img src="images/bodybag-infographic.png" alt="Инфографика по механике BodyBag">
+            <figcaption class="image-caption">Схема управления BodyBag, телепортов и пополнения талонов.</figcaption>
+        </figure>
+    </section>
+
+    <section class="section">
+        <h2>Функции панели BodyBag</h2>
+        <div class="grid">
+            <article class="card">
+                <h3>Телепортироваться к мешку</h3>
+                <p>Перемещение к вашему BodyBag за 1 талон.</p>
+            </article>
+            <article class="card">
+                <h3>Притянуть BodyBag к себе</h3>
+                <p>Телепорт мешка к вашему персонажу за 2 талона.</p>
+            </article>
+            <article class="card">
+                <h3>Доступ к инвентарю</h3>
+                <p>Можно разблокировать или заблокировать доступ к инвентарю BodyBag.</p>
+            </article>
+            <article class="card">
+                <h3>Доступ в руки</h3>
+                <p>Можно разрешить или запретить другим игрокам брать BodyBag в руки.</p>
+            </article>
+            <article class="card">
+                <h3>Сброс на землю</h3>
+                <p>Можно принудительно сбросить BodyBag из рук другого игрока на землю.</p>
+            </article>
+            <article class="card">
+                <h3>Переключение мешков</h3>
+                <p>Панель поддерживает переключение между последними мешками.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>Баланс талонов</h2>
+        <div class="grid">
+            <article class="card">
+                <h3>Как пополнить</h3>
+                <p>Баланс талонов пополняется спасательными ваучерами.</p>
+            </article>
+            <article class="card">
+                <h3>Порядок действий</h3>
+                <p>После получения из автовыдачи возьмите ваучер в руки и удерживайте кнопку мыши до завершения действия — талон зачислится на баланс.</p>
+            </article>
+        </div>
+    </section>
+
+    <p class="note">💡 Чтобы открыть панель, назначьте удобную клавишу в настройках управления (раздел привязки клавиш - "Gelik Mods").</p>
+    <div class="footer">Terra DayZ - информационный раздел</div>
+</main>
+
+<script>
+function goBack() {
+    window.location.href = "index.html";
+}
+</script>
+</body>
+</html>

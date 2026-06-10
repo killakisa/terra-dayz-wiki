@@ -1,5 +1,6 @@
 [
   { "title": "Сканеры", "url": "scanners.html", "tags": "мутанты сканер зомби" },
+  { "title": "Данжи", "url": "dungeons.html", "tags": "данжи боссы урон maya zoo urup" },
   { "title": "Оружие и урон", "url": "weapons.html", "tags": "оружие урон патрон" },
   { "title": "Добыча руды", "url": "mining.html", "tags": "руда плавка ресурсы" },
   { "title": "Группировки S.T.A.G.", "url": "stag-factions.html", "tags": "группировки stag квесты npc торговцы репутация" },

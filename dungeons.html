@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Данжи</title>
+
+<style>
+:root {
+    --bg: #0b0f0d;
+    --panel: #111714;
+    --panel-soft: #151a17;
+    --border: #2b3a2f;
+    --accent: #9cff57;
+    --text: #f4f7fb;
+    --muted: #aeb7b2;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(circle at top, rgba(156, 255, 87, 0.12), transparent 35%), var(--bg);
+    color: var(--text);
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: min(980px, calc(100% - 28px));
+    margin: 30px auto 36px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.back {
+    cursor: pointer;
+    color: var(--accent);
+}
+
+.back:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    margin: 0 0 10px;
+    color: var(--accent);
+    text-align: center;
+}
+
+.subtitle {
+    margin: 0 0 18px;
+    color: var(--muted);
+    text-align: center;
+}
+
+.server-filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    color: #9aa39d;
+    font-size: 14px;
+}
+
+.server-filter select {
+    min-height: 38px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: #0f1512;
+    color: #fff;
+    outline: none;
+}
+
+.server-filter select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 10px rgba(156, 255, 87, 0.28);
+}
+
+.dungeon-card {
+    background: linear-gradient(145deg, var(--panel), var(--panel-soft));
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+}
+
+.dungeon-title {
+    margin: 0 0 6px;
+    color: var(--accent);
+    font-size: 24px;
+}
+
+.server-tag {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: #0f1512;
+    padding: 5px 10px;
+    color: #d6ffd8;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.dungeon-type {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: #101612;
+    padding: 4px 10px;
+    color: #dce3de;
+    font-size: 12px;
+    margin-left: 8px;
+    margin-bottom: 12px;
+}
+
+.meta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.meta {
+    background: #0f1512;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.label {
+    margin: 0 0 6px;
+    color: #9aa39d;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.value {
+    margin: 0;
+    color: #f4f7fb;
+    font-size: 15px;
+}
+
+.difficulty-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 30px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    border: 1px solid;
+}
+
+.difficulty-easy {
+    color: #53ff92;
+    border-color: rgba(83, 255, 146, 0.5);
+    background: rgba(18, 66, 38, 0.55);
+}
+
+.difficulty-medium {
+    color: #ffe76b;
+    border-color: rgba(255, 231, 107, 0.5);
+    background: rgba(87, 74, 15, 0.55);
+}
+
+.difficulty-hard {
+    color: #ff6e6e;
+    border-color: rgba(255, 110, 110, 0.5);
+    background: rgba(94, 23, 23, 0.55);
+}
+
+.empty {
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    padding: 14px;
+    color: var(--muted);
+}
+
+@media (max-width: 700px) {
+    .meta-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .server-filter {
+        display: grid;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="topbar">
+        <div class="back" onclick="goBack()">← Назад</div>
+    </div>
+
+    <h1>Данжи</h1>
+    <p class="subtitle">Выберите сервер для отображения списка данжей и активностей.</p>
+
+    <div class="server-filter">
+        <span>Сервер для отображения данжей:</span>
+        <select id="serverSelect" onchange="renderDungeons()">
+            <option value="Deerisle">Deerisle</option>
+            <option value="Cherno">Cherno</option>
+            <option value="Frostline">Frostline</option>
+        </select>
+    </div>
+
+    <div id="dungeonList"></div>
+</div>
+
+<script>
+function goBack() {
+    window.location.href = "index.html";
+}
+
+const DUNGEONS = {
+    Deerisle: [
+        {
+            type: "Данж",
+            name: "Mine",
+            coords: "11300 / 2300",
+            damage: "1 000 000 - 1 500 000",
+            bosses: "Сирена (150к HP)",
+            difficulty: "Легко",
+            entry: "Свободный по записи через панель"
+        },
+        {
+            type: "Данж",
+            name: "Mount Bear",
+            coords: "11570 / 9200",
+            damage: "1 500 000 - 2 000 000",
+            bosses: "Урус (100к HP)",
+            difficulty: "Средне",
+            entry: "Свободный по записи через панель"
+        },
+        {
+            type: "Данж",
+            name: "KMUC",
+            coords: "7200 / 11600",
+            damage: "2 000 000 - 2 500 000",
+            bosses: "Омон (100к HP)",
+            difficulty: "Средне",
+            entry: "По карте доступа по записи через панель"
+        },
+        {
+            type: "Данж",
+            name: "Maya",
+            coords: "250 / 900",
+            damage: "5 000 000 - 6 000 000",
+            bosses: "Шимпанзе (100к HP), Носорог (140к HP)",
+            difficulty: "Сложно",
+            entry: "Через зловещий посох или алтарь по записи через панель"
+        },
+        {
+            type: "Данж",
+            name: "Castle",
+            coords: "15400 / 10900",
+            damage: "8 500 000 - 9 000 000",
+            bosses: "Ведьмак (300к HP)",
+            difficulty: "Сложно",
+            entry: "Свободный по записи через панель"
+        },
+        {
+            type: "Данж",
+            name: "Prison",
+            coords: "5470 / 807",
+            damage: "10 000 000 - 11 000 000",
+            bosses: "Омон (100к HP), Вольтаж (300к HP)",
+            difficulty: "Сложно",
+            entry: "Свободный по записи через панель"
+        },
+        {
+            type: "Данж",
+            name: "Hellscape",
+            coords: "9350 / 1400",
+            damage: "15 000 000 - 16 000 000",
+            bosses: "Свампер (150к HP)",
+            difficulty: "Сложно",
+            entry: "Свободный по записи через панель"
+        }
+    ],
+    Cherno: [
+        {
+            type: "Мини-данж",
+            name: "Blackstream - Активность \"Нефтевышка\"",
+            coords: "5500 / 917",
+            damage: "500 000",
+            bosses: "Омон (70к HP)",
+            difficulty: "Легко",
+            entry: "Свободный по записи через панель"
+        },
+        {
+            type: "Данж",
+            name: "Berezhki",
+            coords: "15300 / 14350",
+            damage: "500 000",
+            bosses: "Омон (70к HP)",
+            difficulty: "Легко",
+            entry: "Свободный по записи через панель"
+        },
+        {
+            type: "Мини-данж",
+            name: "Black Horizon - Активность \"Нефтевышка\"",
+            coords: "12600 / 950",
+            damage: "1 000 000 - 1 500 000",
+            bosses: "Рекреатор (100к HP)",
+            difficulty: "Легко",
+            entry: "Свободный по записи через панель"
+        },
+        {
+            type: "Мини-данж",
+            name: "Blackwave - Активность \"Нефтевышка\"",
+            coords: "14500 / 8400",
+            damage: "1 500 000 - 2 000 000",
+            bosses: "Вольтаж (300к HP)",
+            difficulty: "Средне",
+            entry: "Свободный по записи через панель"
+        },
+        {
+            type: "Данж",
+            name: "ZOO",
+            coords: "15300 / 15300",
+            damage: "4 000 000 - 5 000 000",
+            bosses: "Шимпанзе (100к HP), Носорог (140к HP)",
+            difficulty: "Средне",
+            entry: "Свободный по записи через панель"
+        },
+        {
+            type: "Данж",
+            name: "Skalisty",
+            coords: "13500 / 3200",
+            damage: "7 000 000 - 8 000 000",
+            bosses: "Сирена (200к HP), Свампер (150к HP)",
+            difficulty: "Сложно",
+            entry: "Свободный по записи через панель"
+        },
+        {
+            type: "Данж",
+            name: "Castle",
+            coords: "1400 / 9300",
+            damage: "10 000 000 - 11 000 000",
+            bosses: "Ведьмак (300к HP)",
+            difficulty: "Сложно",
+            entry: "Свободный по записи через панель"
+        }
+    ],
+    Frostline: [
+        {
+            type: "Данж",
+            name: "Urup",
+            coords: "1400 / 800",
+            damage: "1 000 000 - 1 500 000",
+            bosses: "Урус (100к HP)",
+            difficulty: "Легко",
+            entry: "Свободный по записи через панель"
+        },
+        {
+            type: "Данж",
+            name: "Tungar",
+            coords: "12400 / 14000",
+            damage: "1 500 000 - 2 000 000",
+            bosses: "Альгуль (100к HP), Альгуль Черный (150к HP)",
+            difficulty: "Легко",
+            entry: "Свободный по записи через панель"
+        },
+        {
+            type: "Данж",
+            name: "Elizarovo",
+            coords: "12400 / 14000",
+            damage: "3 000 000 - 3 500 000",
+            bosses: "Свампер (150к HP)",
+            difficulty: "Средне",
+            entry: "Свободный по записи через панель"
+        },
+        {
+            type: "Данж",
+            name: "Castle",
+            coords: "3650 / 2150",
+            damage: "8 500 000 - 9 000 000",
+            bosses: "Ведьмак (300к HP)",
+            difficulty: "Сложно",
+            entry: "Свободный по записи через панель"
+        },
+        {
+            type: "Данж",
+            name: "Prison",
+            coords: "4250 / 11200",
+            damage: "8 500 000 - 9 000 000",
+            bosses: "Вольтаж (300к HP)",
+            difficulty: "Сложно",
+            entry: "Свободный по записи через панель"
+        }
+    ]
+};
+
+function getMinDamage(damageText) {
+    const match = String(damageText || "").match(/[\d\s]+/);
+    if (!match) return Number.MAX_SAFE_INTEGER;
+    return Number(match[0].replace(/\s/g, ""));
+}
+
+function getDifficultyMeta(level) {
+    const normalized = String(level || "").toLowerCase();
+    if (normalized.includes("лег")) {
+        return { text: "Легко", className: "difficulty-easy" };
+    }
+    if (normalized.includes("сред")) {
+        return { text: "Средне", className: "difficulty-medium" };
+    }
+    return { text: "Сложно", className: "difficulty-hard" };
+}
+
+function renderDungeons() {
+    const server = document.getElementById("serverSelect").value;
+    const dungeons = [...(DUNGEONS[server] || [])].sort((a, b) => getMinDamage(a.damage) - getMinDamage(b.damage));
+    const list = document.getElementById("dungeonList");
+
+    if (!dungeons.length) {
+        list.innerHTML = "<div class='empty'>Нет данных по выбранному серверу.</div>";
+        return;
+    }
+
+    list.innerHTML = dungeons.map(dungeon => {
+        const difficulty = getDifficultyMeta(dungeon.difficulty);
+
+        return `
+            <article class="dungeon-card">
+                <h2 class="dungeon-title">${dungeon.name}</h2>
+                <div class="server-tag">Сервер: ${server}</div>
+                <div class="dungeon-type">${dungeon.type}</div>
+                <div class="meta-grid">
+                    <div class="meta">
+                        <p class="label">Координаты</p>
+                        <p class="value">${dungeon.coords}</p>
+                    </div>
+                    <div class="meta">
+                        <p class="label">Суммарный урон</p>
+                        <p class="value">${dungeon.damage}</p>
+                    </div>
+                    <div class="meta">
+                        <p class="label">Боссы</p>
+                        <p class="value">${dungeon.bosses}</p>
+                    </div>
+                    <div class="meta">
+                        <p class="label">Сложность</p>
+                        <div class="difficulty-badge ${difficulty.className}">${difficulty.text}</div>
+                    </div>
+                    <div class="meta" style="grid-column: 1 / -1;">
+                        <p class="label">Вход</p>
+                        <p class="value">${dungeon.entry}</p>
+                    </div>
+                </div>
+            </article>
+        `;
+    }).join("");
+}
+
+renderDungeons();
+</script>
+
+</body>
+</html>
